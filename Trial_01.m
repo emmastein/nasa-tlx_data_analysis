@@ -48,12 +48,21 @@ for j = 1:3
 end
 
 %% grab indivual scores
-mental=[]
+mental=[];
+physical=[];
+temporal=[];
+performance=[];
+effort=[];
+frustration=[];
 
-
-for k=1:6
-   mental(j,:)=AUF(j).score(j,:) 
-    
+for j=1:3
+   mental(j,:)=AUF(j).score(1,:);
+   physical(j,:)=AUF(j).score(2,:);
+   temporal(j,:)=AUF(j).score(3,:);
+   performance(j,:)=AUF(j).score(4,:);
+   effort(j,:)=AUF(j).score(5,:);
+   frustration(j,:)=AUF(j).score(6,:);
+   
 end
 
 %% Graphs
@@ -69,7 +78,7 @@ title('Unweighted workload scores')
 hold off
 
 figure(2)   %weighted workload
-bar(task_cat,mean(wws))
+bar(task_cat,mean(wws,1))
 hold on
 er= errorbar(mean(wws,1),std(wws,1));
 er.Color = [0 0 0];  
@@ -79,11 +88,61 @@ title("Weighted workload score")
 hold off
 
 figure(3)   %Menatal demand
-bar(task_cat,mean(wws))
+bar(task_cat,mean(mental,1))
 hold on
-er= errorbar(mean(wws,1),std(wws,1));
+er= errorbar(mean(mental,1),std(mental,1));
 er.Color = [0 0 0];  
 er.LineStyle = 'none';  
 ylabel("Rating")
-title("Weighted workload score")
+title("Mental demand score")
+hold off
+
+figure(4)   %Physical demand
+bar(task_cat,mean(physical,1))
+hold on
+er= errorbar(mean(physical,1),std(physical,1));
+er.Color = [0 0 0];  
+er.LineStyle = 'none';  
+ylabel("Rating")
+title("Physical demand score")
+hold off
+
+figure(5)   %Temporal demand
+bar(task_cat,mean(temporal,1))
+hold on
+er= errorbar(mean(temporal,1),std(temporal,1));
+er.Color = [0 0 0];  
+er.LineStyle = 'none';  
+ylabel("Rating")
+title("Temporal demand score")
+hold off
+
+figure(6)   %Performance
+bar(task_cat,mean(performance,1))
+hold on
+er= errorbar(mean(performance,1),std(performance,1));
+er.Color = [0 0 0];  
+er.LineStyle = 'none';  
+ylabel("Rating")
+title("Performance score")
+hold off
+
+figure(7)   %Effort
+bar(task_cat,mean(effort,1))
+hold on
+er= errorbar(mean(effort,1),std(effort,1));
+er.Color = [0 0 0];  
+er.LineStyle = 'none';  
+ylabel("Rating")
+title("Effort score")
+hold off
+
+figure(8)   %frustration demand
+bar(task_cat,mean(frustration,1))
+hold on
+er= errorbar(mean(frustration,1),std(frustration,1));
+er.Color = [0 0 0];  
+er.LineStyle = 'none';  
+ylabel("Rating")
+title("Frustration score")
 hold off
