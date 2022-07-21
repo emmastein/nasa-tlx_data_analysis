@@ -5,11 +5,11 @@
 
 %% Variable
 
-subID=03;
+subID=02;
 
 %% import data
 
-data=readtable("AUF03V01TLX");
+data=readtable("AUF02V01TLX");
 reported_score=table2array(data(1:6,1:5));
 reported_weight=string(table2array(data(:,6:8)));
 
@@ -20,7 +20,7 @@ weight_string=join(reported_weight,1);
 
 weight_count=[];
 for i = 1:6
-    weight_count(i,:)=count(weight_string,weight_name(i));
+    weight_count(i,:)=c+ount(weight_string,weight_name(i));
 end
 
 weight=[weight_count(:,1) weight_count(:,1) weight_count(:,2) weight_count(:,2) weight_count(:,3)];
@@ -31,11 +31,12 @@ task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_string=string(task_cat);
 sub_score=string(["mental" "physical" "temporal" "perfromance" "effort" "frustration"]);
 
-
-% AUF(99).score=array2table(reported_score,'VariableNames',[task_string] ,'rowNames',sub_score);
-% AUF(99).weight=array2table(zeros(6:5),'VariableNames',[task_string] ,'rowNames',sub_score);
 AUF(subID).score=reported_score;
 AUF(subID).weight=weight;
+
+%create example table
+ AUFExample.score=array2table(zeros(6,5),'VariableNames',[task_string] ,'rowNames',sub_score);
+ AUFExample.weight=array2table(zeros(6,5),'VariableNames',[task_string] ,'rowNames',sub_score);
 
 
 %% find workload score
