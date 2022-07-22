@@ -5,34 +5,23 @@
 
 %% Variable
 
-subID=02;
+sub_number=03;
 
 %% import data
 
-data=readtable("AUF02V01TLX");
-reported_score=table2array(data(1:6,1:5));
-reported_weight=string(table2array(data(:,6:8)));
 
-%% add weights
-
-weight_name=["mental", "physical", "temporal", "performance" ,"effort" ,"frustration"];
-weight_string=join(reported_weight,1);
-
-weight_count=[];
-for i = 1:6
-    weight_count(i,:)=c+ount(weight_string,weight_name(i));
+for j=1:sub_number
+    fileName=sprintf("AUF0%dV01TLX",j);
+    [subject]=enterData(fileName,j);
+    AUF(j)=subject(j);
 end
 
-weight=[weight_count(:,1) weight_count(:,1) weight_count(:,2) weight_count(:,2) weight_count(:,3)];
+%% example table
 
-%% add data to stuct
 task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_string=string(task_cat);
 sub_score=string(["mental" "physical" "temporal" "perfromance" "effort" "frustration"]);
-
-AUF(subID).score=reported_score;
-AUF(subID).weight=weight;
 
 %create example table
  AUFExample.score=array2table(zeros(6,5),'VariableNames',[task_string] ,'rowNames',sub_score);
@@ -147,3 +136,5 @@ er.LineStyle = 'none';
 ylabel("Rating")
 title("Frustration score")
 hold off
+
+close all

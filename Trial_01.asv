@@ -9,33 +9,26 @@ subID=03;
 
 %% import data
 
-data=readtable("AUF03V01TLX");
-reported_score=table2array(data(1:6,1:5));
-reported_weight=string(table2array(data(:,6:8)));
 
-%% add weights
-
-weight_name=["mental", "physical", "temporal", "performance" ,"effort" ,"frustration"];
-weight_string=join(reported_weight,1);
-
-weight_count=[];
-for i = 1:6
-    weight_count(i,:)=count(weight_string,weight_name(i));
+for j=1:subID
+    
+    fileName=sprintf("AUF0%dV01TLX",j);
+    [reported_score,weight]=enterData(fileName,j);
+    AUF(j).score=reported_score;
+    AUF(j).weight=weight;
+    
 end
 
-weight=[weight_count(:,1) weight_count(:,1) weight_count(:,2) weight_count(:,2) weight_count(:,3)];
+%% example table
 
-%% add data to stuct
 task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_string=string(task_cat);
 sub_score=string(["mental" "physical" "temporal" "perfromance" "effort" "frustration"]);
 
-
-% AUF(99).score=array2table(reported_score,'VariableNames',[task_string] ,'rowNames',sub_score);
-% AUF(99).weight=array2table(zeros(6:5),'VariableNames',[task_string] ,'rowNames',sub_score);
-AUF(subID).score=reported_score;
-AUF(subID).weight=weight;
+%create example table
+ AUFExample.score=array2table(zeros(6,5),'VariableNames',[task_string] ,'rowNames',sub_score);
+ AUFExample.weight=array2table(zeros(6,5),'VariableNames',[task_string] ,'rowNames',sub_score);
 
 
 %% find workload score
@@ -120,11 +113,11 @@ hold off
 figure(6)   %Performance
 bar(task_cat,mean(performance,1))
 hold on
-er= errorbar(mean(performance,1),std(perfromance,1));
+er= errorbar(mean(performance,1),std(performance,1));
 er.Color = [0 0 0];  
 er.LineStyle = 'none';  
 ylabel("Rating")
-title("Performance demand score")
+title("Performance score")
 hold off
 
 figure(7)   %Effort
@@ -134,5 +127,15 @@ er= errorbar(mean(effort,1),std(effort,1));
 er.Color = [0 0 0];  
 er.LineStyle = 'none';  
 ylabel("Rating")
-title("Mental demand score")
+title("Effort score")
+hold off
+
+figure(8)   %frustration demand
+bar(task_cat,mean(frustration,1))
+hold on
+er= errorbar(mean(frustration,1),std(frustration,1));
+er.Color = [0 0 0];  
+er.LineStyle = 'none';  
+ylabel("Rating")
+title("Frustration score")
 hold off
