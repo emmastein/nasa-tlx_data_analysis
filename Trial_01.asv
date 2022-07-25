@@ -1,22 +1,17 @@
 % Trial 1
 % addpath("C:\Users\emmaa\Documents\GitHub\nasa-tlx_data_analysis")
 % How to save data/add in data
-% Looking at struct files
 
 %% Variable
 
-subID=03;
+sub_number=03;
 
 %% import data
 
-
-for j=1:subID
-    
+for j=1:sub_number
     fileName=sprintf("AUF0%dV01TLX",j);
-    [reported_score,weight]=enterData(fileName,j);
-    AUF(j).score=reported_score;
-    AUF(j).weight=weight;
-    
+    subject=enterData(fileName,j);
+    AUF(j)=subject(j);
 end
 
 %% example table
@@ -27,9 +22,8 @@ task_string=string(task_cat);
 sub_score=string(["mental" "physical" "temporal" "perfromance" "effort" "frustration"]);
 
 %create example table
- AUFExample.score=array2table(zeros(6,5),'VariableNames',[task_string] ,'rowNames',sub_score);
- AUFExample.weight=array2table(zeros(6,5),'VariableNames',[task_string] ,'rowNames',sub_score);
-
+ AUFExample.score=array2table(zeros(6,5),'VariableNames',task_string ,'rowNames',sub_score);
+ AUFExample.weight=array2table(zeros(6,5),'VariableNames',task_string ,'rowNames',sub_score);
 
 %% find workload score
 
@@ -37,16 +31,10 @@ wws=[];
 uws=[];
 for j = 1:3
     wws(j,:)=sum(AUF(j).score.*AUF(j).weight)/15;
-    uws(j,:)=sum(AUF(j).score)/15;
+    uws(j,:)=sum(AUF(j).score)/15; % note
 end
 
 %% grab indivual scores
-mental=[];
-physical=[];
-temporal=[];
-performance=[];
-effort=[];
-frustration=[];
 
 for j=1:3
    mental(j,:)=AUF(j).score(1,:);
@@ -55,7 +43,6 @@ for j=1:3
    performance(j,:)=AUF(j).score(4,:);
    effort(j,:)=AUF(j).score(5,:);
    frustration(j,:)=AUF(j).score(6,:);
-   
 end
 
 %% Graphs
@@ -139,3 +126,5 @@ er.LineStyle = 'none';
 ylabel("Rating")
 title("Frustration score")
 hold off
+
+close all
