@@ -20,6 +20,12 @@ for i = 1:6
     weight_count(i,:)=count(weight_string,weight_name(i));
 end
 
+%Checks to ensure weights are correct
+if sum(weight_count,1)==[15 15 15]
+else
+    warning("Check spelling in weights")
+end
+
 %Create a 3 by 5 array to match the size of score array
 weight=[weight_count(:,1) weight_count(:,1) weight_count(:,2) weight_count(:,2) weight_count(:,3)];
 
