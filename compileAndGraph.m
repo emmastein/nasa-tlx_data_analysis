@@ -6,31 +6,35 @@ subjects=[1:7 9 11:13];
 
 %% load
 
-for j=subjects
-    if j==8 || j==10
-    else
+j=1;
+for k=1:length(subjects)
+    if j==subjects(j)
         if j==1
-            fileName=sprintf("AUF%02dV01RetestTLX",j);
-            fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",j);
+            fileName=sprintf("AUF%02dV01RetestTLX.mat",k);
+            fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",k);
         else
-            fileName=sprintf("AUF%02dV01TLX",j);
-            fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",j);
+            fileName=sprintf("AUF%02dV01TLX.mat",k);
+            fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",k);
         end
-        load(fileLocation+fileName);
-        AUF(j)=subjectData;
+        load(fileLocation+fileName);   
     end
+    AUF(k)=subjectData;
+    j=j+1;
 end
+
+
 
 %% find workload score
 
-for j = subjects
+for j = 1:length(subjects)
+    
     wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
     uws(j,:)= mean(AUF(j).score{:,:});
 end
 
 %% grab indivual scores
 
-for j=subjects
+for j=1:length(subjects)
    mental(j,:)=AUF(j).score{1,:};
    physical(j,:)=AUF(j).score{2,:};
    temporal(j,:)=AUF(j).score{3,:};

@@ -2,13 +2,13 @@
 
 %% Variables
 
-subID=13;
+subjects=[1:7 9 11:13];
 
 %% load
 
-for j=1:subID
-    if j=8 || j=10
-    else
+j=1;
+for k=length(subjects)
+    if j==subjects(j)
         if j==1
             fileName=sprintf("AUF%02dV01RetestTLX",j);
             fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",j);
@@ -17,20 +17,26 @@ for j=1:subID
             fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",j);
         end
         load(fileLocation+fileName);
-        AUF(j)=subjectData;
+       
     end
+    AUF(k)=subjectData;
+    trial(k)
+    j=j+1;
 end
+
+
 
 %% find workload score
 
-for j = 1:subID
+for j = length(subjects)
+    
     wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
     uws(j,:)= mean(AUF(j).score{:,:});
 end
 
 %% grab indivual scores
 
-for j=1:subID
+for j=subjects
    mental(j,:)=AUF(j).score{1,:};
    physical(j,:)=AUF(j).score{2,:};
    temporal(j,:)=AUF(j).score{3,:};
