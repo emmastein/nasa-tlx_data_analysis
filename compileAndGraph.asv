@@ -2,12 +2,12 @@
 
 %% Variables
 
-subjects=[1:7 9 11:13];
+subID=13;
 
 %% load
 
-for j=subjects
-    if j==8 || j==10
+for j=1:subID
+    if j=8 || j=10
     else
         if j==1
             fileName=sprintf("AUF%02dV01RetestTLX",j);
@@ -23,14 +23,14 @@ end
 
 %% find workload score
 
-for j = subjects
+for j = 1:subID
     wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
     uws(j,:)= mean(AUF(j).score{:,:});
 end
 
 %% grab indivual scores
 
-for j=subjects
+for j=1:subID
    mental(j,:)=AUF(j).score{1,:};
    physical(j,:)=AUF(j).score{2,:};
    temporal(j,:)=AUF(j).score{3,:};
