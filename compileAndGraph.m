@@ -7,8 +7,13 @@ subID=3;
 %% load
 
 for j=1:subID
-    fileName=sprintf("AUF%02dV01TLX.mat",j);
-    fileLocation=sprintf("C:\\Users\\emmaa\\Documents\\GitHub\\nasa-tlx_data_analysis\\try\\AUF%02d\\V01\\",j);
+    if j==1
+        fileName=sprintf("AUF%02dV01RetestTLX",j);
+        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",j);
+    else
+        fileName=sprintf("AUF%02dV01TLX",j);
+        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",j);
+    end
     load(fileLocation+fileName);
     AUF(j)=subjectData;
 end

@@ -24,7 +24,7 @@ end
 %	given
 if sum(weight_count,1)==[15 15 15]
 else
-    warning("Weights in AUF0%d do not add up to 15. Check spelling in the excel sheet for weights" ,j)
+    warning("Weights in AUF%02d do not add up to 15. Check spelling in the excel sheet for weights" ,j)
 end
 
 %Create a 3 by 5 array to match the size of score array

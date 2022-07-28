@@ -7,10 +7,15 @@ subID=02;
 
 %% load data 
 
-fileName=sprintf("AUF%02dV01TLX",subID);
-fileLocation=sprintf("C:\\Users\\emmaa\\Documents\\GitHub\\nasa-tlx_data_analysis\\try\\AUF%02d\\V01\\",subID);
-filePlace=fileLocation+fileName+".xlsx";
+if subID==1
+    fileName=sprintf("AUF%02dV01RetestTLX",subID);
+    fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",subID);
+else
+    fileName=sprintf("AUF%02dV01TLX",subID);
+    fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",subID);
+end
 
+filePlace=fileLocation+fileName+".xlsx";
 subjectData=enterData(filePlace,subID);
 
 %% save data
