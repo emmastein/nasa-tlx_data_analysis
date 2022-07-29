@@ -6,6 +6,7 @@ subjects=[1:7 9 11:13];
 
 %% load
 
+
 j=1;
 for k=1:length(subjects)
     if j==subjects(j)
@@ -19,7 +20,9 @@ for k=1:length(subjects)
         load(fileLocation+fileName);   
     end
     AUF(k)=subjectData;
-    j=j+1;
+    j=j+1; 
+    leg(j)=sprintf("AUF%02d",j); % label for legend when graphing
+
 end
 
 
@@ -29,7 +32,7 @@ end
 for j = 1:length(subjects)
     
     wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
-    uws(j,:)= mean(AUF(j).score{:,:});
+    uws(j,:)= mean(AUF(j).score{:,:}); % unweighted workload is just the average of all subscores
 end
 
 %% grab indivual scores
@@ -56,6 +59,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel('Rating')
 title('Unweighted workload scores')
+p=plot(task_cat,uws, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(2)   %weighted workload
@@ -66,6 +71,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Weighted workload score")
+p=plot(task_cat,wws, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(3)   %Menatal demand
@@ -76,6 +83,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Mental demand score")
+p=plot(task_cat,mental, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(4)   %Physical demand
@@ -86,6 +95,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Physical demand score")
+p=plot(task_cat,physical, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(5)   %Temporal demand
@@ -96,6 +107,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Temporal demand score")
+p=plot(task_cat,temporal, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(6)   %Performance
@@ -106,6 +119,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Performance score")
+p=plot(task_cat,performance, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(7)   %Effort
@@ -116,6 +131,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Effort score")
+p=plot(task_cat,effort, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(8)   %frustration demand
@@ -126,4 +143,6 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Frustration score")
+p=plot(task_cat,frustration, '.-','MarkerSize',14);
+legend(p,leg)
 hold off

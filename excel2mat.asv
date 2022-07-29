@@ -3,6 +3,7 @@
 %% variables
 clear;
 
+
 subID=10;
 
 %% load data 
@@ -16,6 +17,7 @@ else
 end
 
 filePlace=fileLocation+fileName+".xlsx";
+
 subjectData=enterData(filePlace,subID);
 
 %% save data
