@@ -2,9 +2,9 @@
 
 %% Variables
 
-subjects=[1:7 9 11:13];
+subjects=[1:7 9 11:12];
 
-%% load
+%% load tlx
 
 
 j=1;
@@ -20,18 +20,24 @@ for k=subjects
     end
     load(fileLocation+fileName);   
     AUF(j)=subjectData; 
-    leg(j)=legend_name;
-    j=j+1; 
+    leg(j)=legend_name; % label for legend when graphing
+    j=j+1; %counter
 end
 
-
-
-%% find workload score
-
-for j = 1:length(subjects)
-    
-    wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
-    uws(j,:)= mean(AUF(j).score{:,:}); % unweighted workload is just the average of all subscores
+%% load alphabet
+m=1;
+for k=subjects
+    if m==1
+        fileName=sprintf("AUF%02dV01RetestDTdata.mat",k);
+        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",k);
+    else
+        fileName=sprintf("AUF%02dV01DTdata.mat",k);
+        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",k);
+    end
+    load(fileLocation+fileName);   
+    placeHolder=DTdata.data.alphabetRate;
+    AUF(m).alphabet=transpose([placeHolder(1,:); placeHolder(3,:); placeHolder(2,:); placeHolder(4,:)]);
+    m=m+1; %counter
 end
 
 %% grab indivual scores
@@ -43,13 +49,24 @@ for j=1:length(subjects)
    performance(j,:)=AUF(j).score{4,:};
    effort(j,:)=AUF(j).score{5,:};
    frustration(j,:)=AUF(j).score{6,:};
+   alphabet_array(j,:)=mean(AUF(j).alphabet);
 end
+
+
+
+%% find workload score
+
+for j = 1:length(subjects)
+    wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
+    uws(j,:)= mean(AUF(j).score{:,:}); % unweighted workload is just the average of all subscores
+end
+
 
 %% graphs
 
-% task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
-% task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
-% 
+task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
+task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
+
 % figure(1)   %Unweighted workload 
 % bar(task_cat,mean(uws,1))
 % hold on
@@ -145,3 +162,19 @@ end
 % p=plot(task_cat,frustration, '.-','MarkerSize',14);
 % legend(p,leg)
 % hold off
+
+figure(9) %wws vs alphabet rate
+p=plot(wws(:,1:4),alphabet_array(:,:),'.','MarkerSize',12);
+legend(p,task_cat(1:4))
+
+figure(10)  %uww vs alphabet rate
+p=plot(uww(:,1:4),alphabet_array(:,:),'.','MarkerSize',12);
+legend(p,task_cat(1:4))
+
+figure(11)  %metnal vs alphabet rate
+p=plot(mental(:,1:4),alphabet_array(:,:),'.','MarkerSize',12);
+legend(p,task_cat(1:4))
+
+figure(12)
+p=plot(performance(:,1:4),alphabet_array(:,:),'.','MarkerSize',12);
+legend(p,task_cat(1:4))
