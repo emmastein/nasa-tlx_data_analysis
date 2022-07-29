@@ -3,7 +3,7 @@
 %% variables
 clear;
 
-subID=02;
+subID=03;
 
 %% load data 
 

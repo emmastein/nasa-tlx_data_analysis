@@ -11,7 +11,6 @@ for j=1:subID
     fileLocation=sprintf("C:\\Users\\emmaa\\Documents\\GitHub\\nasa-tlx_data_analysis\\try\\AUF%02d\\V01\\",j);
     load(fileLocation+fileName);
     AUF(j)=subjectData;
-    leg(j)=sprintf("AUF%02d",j);
 end
 
 %% find workload score
@@ -46,7 +45,7 @@ er.LineStyle = 'none';
 ylabel('Rating')
 title('Unweighted workload scores')
 p=plot(task_cat,uws, '.-','MarkerSize',14);
-legend(p,leg)
+legend(p)
 hold off
 
 figure(2)   %weighted workload
@@ -58,7 +57,7 @@ er.LineStyle = 'none';
 ylabel("Rating")
 title("Weighted workload score")
 p=plot(task_cat,wws, '.-','MarkerSize',14);
-legend(p,leg)
+legend(p)
 hold off
 
 figure(3)   %Menatal demand
@@ -69,8 +68,6 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Mental demand score")
-p=plot(task_cat,mental, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
 
 figure(4)   %Physical demand
@@ -81,8 +78,6 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Physical demand score")
-p=plot(task_cat,physical, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
 
 figure(5)   %Temporal demand
@@ -93,8 +88,6 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Temporal demand score")
-p=plot(task_cat,temporal, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
 
 figure(6)   %Performance
@@ -106,7 +99,7 @@ er.LineStyle = 'none';
 ylabel("Rating")
 title("Performance score")
 p=plot(task_cat,performance, '.-','MarkerSize',14);
-legend(p,leg)
+legend(p)
 hold off
 
 figure(7)   %Effort
@@ -118,7 +111,7 @@ er.LineStyle = 'none';
 ylabel("Rating")
 title("Effort score")
 p=plot(task_cat,effort, '.-','MarkerSize',14);
-legend(p,leg)
+legend(p)
 hold off
 
 figure(8)   %frustration demand
@@ -130,5 +123,5 @@ er.LineStyle = 'none';
 ylabel("Rating")
 title("Frustration score")
 p=plot(task_cat,frustration, '.-','MarkerSize',14);
-legend(p,leg)
+legend(p)
 hold off
