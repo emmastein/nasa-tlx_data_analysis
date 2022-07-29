@@ -11,14 +11,14 @@ for j=1:subID
     fileLocation=sprintf("C:\\Users\\emmaa\\Documents\\GitHub\\nasa-tlx_data_analysis\\try\\AUF%02d\\V01\\",j);
     load(fileLocation+fileName);
     AUF(j)=subjectData;
-    leg(j)=sprintf("AUF%02d",j);
+    leg(j)=sprintf("AUF%02d",j); % label for legend when graphing
 end
 
 %% find workload score
 
 for j = 1:subID
     wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
-    uws(j,:)= mean(AUF(j).score{:,:});
+    uws(j,:)= mean(AUF(j).score{:,:}); % unweighted workload is just the average of all subscores
 end
 
 %% grab indivual scores
