@@ -2,7 +2,7 @@
 
 %% Variables
 
-subjects=[1:7 9 11:12];
+subjects=[1:4 5:7 9 11:12];
 
 %% load tlx
 
@@ -51,7 +51,7 @@ for j=1:length(subjects)
    performance(j,:)=AUF(j).score{4,:};
    effort(j,:)=AUF(j).score{5,:};
    frustration(j,:)=AUF(j).score{6,:};
-   alphabetArray(j,:)=mean(AUF(j).alphabet);
+   alphabetArray(j,:)=mean(AUF(j).alphabet,'omitnan');
    fNIRSArray(j,:)=AUF(j).fNIRS;
 end
 
@@ -64,4 +64,4 @@ for j = 1:length(subjects)
     uws(j,:)= mean(AUF(j).score{:,:}); % unweighted workload is just the average of all subscores
 end
 
-
+wws(4,:)= [nan nan nan nan nan];

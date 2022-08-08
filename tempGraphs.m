@@ -147,12 +147,12 @@ task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 % title('Mental Demand vs Alphabet Rate')
 % legend(p,task_cat(1:4))
 % 
-figure(12) %wws vs fnirs
-p=plot(wws(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Weighted Workload vs fNIRS')
+% figure(12) %wws vs fnirs
+% p=plot(wws(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
+% xlim([0 100])
+% ylabel('fNIRS')
+% xlabel('Workload rating')
+% title('Weighted Workload vs fNIRS')
 
 % 
 % figure(13) %uws vs fnirs
@@ -171,9 +171,9 @@ title('Weighted Workload vs fNIRS')
 % title('Mental demand vs fNIRS')
 % legend(p,task_cat)
 % 
-% figure(15) %alphabet vs fnirs
-% p=plot(transpose(alphabetArray(:,:)),transpose(fNIRSArray(:,1:4)),'.','MarkerSize',12);
-% ylabel('fNIRS')
-% xlabel('alphabet rate')
-% title('fNIRS vs Alphabet Rate')
-% legend(p)
+figure(15) %alphabet vs fnirs
+p=plot(transpose(alphabetArray(:,:)),transpose(fNIRSArray(:,1:4)),'.','MarkerSize',12);
+ylabel('fNIRS')
+xlabel('alphabet rate')
+title('fNIRS vs Alphabet Rate')
+legend(p)
