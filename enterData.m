@@ -34,7 +34,7 @@ weight=[weight_count(:,1) weight_count(:,1) weight_count(:,2) weight_count(:,2) 
 task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_string=string(task_cat);
-sub_score=string(["mental" "physical" "temporal" "perfromance" "effort" "frustration"]);
+sub_score=string(["mental" "physical" "temporal" "performance" "effort" "frustration"]);
 
 subject.score=array2table(reported_score,'VariableNames',task_string ,'rowNames',sub_score);
 subject.weight=array2table(weight,'VariableNames',task_string ,'rowNames',sub_score);
