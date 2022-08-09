@@ -2,7 +2,7 @@
 
 %% Variables
 
-subjects=[1:3 5:7 9 11:12];
+subjects=[1:4 5:7 9 11:12];
 
 %% load tlx
 
@@ -60,9 +60,8 @@ end
 %% find workload score
 
 for j = 1:length(subjects)
-    if
     wws(j,:)=sum(times(AUF(j).score{:,:},AUF(j).weight{:,:}))/15;
     uws(j,:)= mean(AUF(j).score{:,:}); % unweighted workload is just the average of all subscores
 end
 
-
+wws(4,:)= [nan nan nan nan nan]; % 

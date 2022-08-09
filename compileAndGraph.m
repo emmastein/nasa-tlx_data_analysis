@@ -12,7 +12,7 @@ for k=subjects
     if j==1
         fileName=sprintf("AUF%02dV01RetestTLX.mat",k);
         fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",k);
-        legend_name=sprintf("AUF01Retest"); % label for legend when graphing
+        legend_name=sprintf("AUF01Retest"); % label for legend when graphing  
     else
         fileName=sprintf("AUF%02dV01TLX.mat",k);
         fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",k);
@@ -38,7 +38,7 @@ for k=subjects
     placeHolder=DTdata.data.alphabetRate;
     placeHolder2=DTdata.statsTables.tablePFC_All.T;
     AUF(m).alphabet=transpose([placeHolder(1,:); placeHolder(3,:); placeHolder(2,:); placeHolder(4,:)]);    %place data in same order as TLX 
-    AUF(m).fNIRS=transpose([placeHolder2(1:2,:); placeHolder2(8:10,:)]);
+    AUF(m).fNIRS=transpose([placeHolder2(1:2,:); placeHolder2(8:10,:)]);    %place data in same order as tlx
     m=m+1; %counter
 end
 
@@ -51,7 +51,7 @@ for j=1:length(subjects)
    performance(j,:)=AUF(j).score{4,:};
    effort(j,:)=AUF(j).score{5,:};
    frustration(j,:)=AUF(j).score{6,:};
-   alphabetArray(j,:)=mean(AUF(j).alphabet,'omitnan');
+   alphabetArray(j,:)=mean(AUF(j).alphabet,'omitnan'); %takes the average over availabe trials
    fNIRSArray(j,:)=AUF(j).fNIRS;
 end
 
@@ -64,4 +64,4 @@ for j = 1:length(subjects)
     uws(j,:)= mean(AUF(j).score{:,:}); % unweighted workload is just the average of all subscores
 end
 
-wws(4,:)= [nan nan nan nan nan];
+wws(4,:)= [nan nan nan nan nan]; % AUF04 incorrectly scored weights
