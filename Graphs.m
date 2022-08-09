@@ -2,14 +2,14 @@
 
 task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
+legAlt=[leg(:,1:3) leg(:,5:end)];
 
 %% Workload
 
 figure(1)   %Unweighted workload 
 bar(task_cat,mean(uws,1));
-
 hold on
-er= errorbar(mean(uws,1, 'omitnan'),std(uws,1,'omitnan'));
+er= errorbar(mean(uws,1),std(uws,1));
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';  
 ylabel('Rating')
@@ -19,15 +19,15 @@ legend(p,leg)
 hold off
 
 figure(2)   %weighted workload
-bar(task_cat,mean(wws,1))
+bar(task_cat,mean(wws,1,'omitnan'))
 hold on
-er= errorbar(mean(wws,1),std(wws,1));
+er= errorbar(mean(wws,1,'omitnan'),std(wws,1,'omitnan'));
 er.Color = [0 0 0];  
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Weighted workload score")
-p=plot(task_cat,wws, '.-','MarkerSize',14);
-legend(p,leg)
+p=plot(task_cat,[wws(1:3,:); wws(5:end,:)], '.-','MarkerSize',14);
+legend(p,legAlt)
 hold off
 
 figure(3)   %Menatal demand
