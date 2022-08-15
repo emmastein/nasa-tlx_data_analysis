@@ -37,8 +37,10 @@ for k=subjects
     load(fileLocation+fileName);
     placeHolder=DTdata.data.alphabetRate;
     placeHolder2=DTdata.statsTables.tablePFC_All.T;
+    placeHolder3=DTdata.data.walkSpeed;
     AUF(m).alphabet=transpose([placeHolder(1,:); placeHolder(3,:); placeHolder(2,:); placeHolder(4,:)]);    %place data in same order as TLX 
     AUF(m).fNIRS=transpose([placeHolder2(1:2,:); placeHolder2(8:10,:)]);    %place data in same order as tlx
+    AUF(m).speed=transpose([placeHolder3(2,:); placeHolder3(4:5,:)]);
     m=m+1; %counter
 end
 
@@ -53,6 +55,7 @@ for j=1:length(subjects)
    frustration(j,:)=AUF(j).score{6,:};
    alphabetArray(j,:)=mean(AUF(j).alphabet,'omitnan'); %takes the average over availabe trials
    fNIRSArray(j,:)=AUF(j).fNIRS;
+   speedArray(j,:)=mean(AUF(j).speed); %taking the average speed over all six trials
 end
 
 

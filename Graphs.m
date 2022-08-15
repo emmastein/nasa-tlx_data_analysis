@@ -4,9 +4,16 @@ task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 legAlt=[leg(:,1:3) leg(:,5:end)];
 
+ColorOrderNirsAutomaticity
+set(groot,'DefaultAxesColorOrder',colorOrder)
+for j=1:length(subjects)
+    ColorOrd(j,:)=colorOrder(j,:);
+end
+
 %% Workload
 
 figure(1)   %Unweighted workload 
+
 bar(task_cat,mean(uws,1));
 hold on
 er= errorbar(mean(uws,1),std(uws,1));
@@ -26,8 +33,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Weighted workload score")
-p=plot(task_cat,[wws(1:3,:); wws(5:end,:)], '.-','MarkerSize',14);
-legend(p,legAlt)
+p=plot(task_cat,[wws(:,:)], '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(3)   %Menatal demand
@@ -108,11 +115,12 @@ hold off
 %wws vs alphabet rate
 figure(9) 
 subplot(2,2,1)
-plot(wws(:,1),alphabetArray(:,1),'.','MarkerSize',12);
+scatter(wws(:,1),alphabetArray(:,1),14,ColorOrd,'filled');
 xlim([0 100])
 ylabel('AlphabetRate')
 xlabel('Workload rating')
 title('Weighted workload scores vs Alphabet Rate: Stand 2')
+
 
 subplot(2,2,2)
 plot(wws(:,2),alphabetArray(:,2),'.','MarkerSize',12);
@@ -657,7 +665,7 @@ ylabel('fNIRS')
 xlabel('alphabet rate')
 title('fNIRS vs Alphabet Rate: Stand 3')
 
-subplot(2,2,3)
+subplot(3,1,3)
 plot(transpose(alphabetArray(:,3)),transpose(fNIRSArray(:,3)),'.','MarkerSize',12);
 ylabel('fNIRS')
 xlabel('alphabet rate')
@@ -669,7 +677,206 @@ ylabel('fNIRS')
 xlabel('alphabet rate')
 title('fNIRS vs Alphabet Rate: Walk 3')
 
+%% Walk speed vs workload scores
+
+% wws vs walk speed
+figure(30) 
+subplot(1,3,1)
+plot(wws(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(wws(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 3')
+
+subplot(1,3,3)
+plot(wws(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk')
+
+sgtitle('Weighted Workload Score vs Walk Speed')
+
+figure(31) %uws vs walk speed
+subplot(1,3,1)
+plot(uws(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(uws(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 3')
+
+subplot(1,3,3)
+plot(uws(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk')
+
+sgtitle('Unweighted Workload Score vs Walk Speed')
+
+%Mental vs walk speed
+figure(32) 
+subplot(1,3,1)
+plot(mental(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(mental(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title(' Walk 3')
+
+subplot(1,3,3)
+plot(mental(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk')
+
+sgtitle('Mental Demand Subscore vs Walk Speed')
 
 
+%Temporal vs walk speed
+figure(33) 
+subplot(1,3,1)
+plot(temporal(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(temporal(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 3')
+
+subplot(1,3,3)
+plot(temporal(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk')
+
+sgtitle('Temporal Demand Subscore vs Walk Speed')
+
+%Physical vs walk speed
+figure(34) 
+subplot(1,3,1)
+plot(physical(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(physical(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 3')
+
+subplot(1,3,3)
+plot(physical(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk')
+
+sgtitle('Physical Demand Subscore vs Walk Speed')
+
+%performance vs walk speed
+figure(35) 
+subplot(1,3,1)
+plot(performance(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(performance(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 3')
+
+subplot(1,3,3)
+plot(performance(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title(' Walk')
+
+sgtitle('Performance Subscore vs Walk Speed')
+
+%Effort vs walk speed
+figure(36) 
+subplot(1,3,1)
+plot(effort(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(effort(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 3')
+
+subplot(1,3,3)
+plot(effort(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk')
+
+sgtitle('Effort Subscore vs Walk Speed')
+
+%Frustration vs walk speed
+figure(37) 
+subplot(1,3,1)
+plot(frustration(:,1),speedArray(:,1),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 2')
+
+subplot(1,3,2)
+plot(frustration(:,2),speedArray(:,2),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk 3')
+
+subplot(1,3,3)
+plot(frustration(:,3),speedArray(:,3),'.','MarkerSize',12);
+xlim([0 100])
+ylabel('Walk Speed')
+xlabel('Workload rating')
+title('Walk')
+
+sgtitle('Frustration Subscore vs Walk Speed')
 
 
