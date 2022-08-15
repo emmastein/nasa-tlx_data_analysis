@@ -1,10 +1,27 @@
+close all;
+clear ColorOrd colorOrder;
+set(groot,'DefaultAxesColorOrder','default')
 
+task_cat= categorical(["Stand 2" "Stand 3" "Walk 2" "Walk 3" "Walk"]);
+task_cat=reordercats(task_cat,["Stand 2" "Stand 3" "Walk 2" "Walk 3" "Walk"]);
 
-task_cat= categorical(["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
-task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
-legAlt=[leg(:,1:3) leg(:,5:end)];
+ColorOrderNirsAutomaticity
+
+k=0;
+for j=1:length(subjects)+1
+    if j==9
+        j=j+1;
+    else
+    k=k+1;
+    ColorOrd(k,:)=colorOrder(j,:);
+   
+    end
+end
+set(groot,'DefaultAxesColorOrder',ColorOrd)
 
 %% Workload
+
+
 
 figure(1)   %Unweighted workload 
 bar(task_cat,mean(uws,1));
@@ -14,9 +31,11 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel('Rating')
 title('Unweighted workload scores')
+set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,uws, '.-','MarkerSize',14);
 legend(p,leg)
 hold off
+
 
 figure(2)   %weighted workload
 bar(task_cat,mean(wws,1,'omitnan'))
@@ -26,8 +45,9 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Weighted workload score")
-p=plot(task_cat,, '.-','MarkerSize',14);
-legend(p,legAlt)
+set(gca,'ColorOrderIndex',1)
+p=plot(task_cat,wws, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 figure(3)   %Menatal demand
@@ -39,9 +59,10 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Mental demand score")
+set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,mental, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
+
 
 subplot(2,3,2) %Physical demand
 bar(task_cat,mean(physical,1))
@@ -51,9 +72,10 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Physical demand score")
+set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,physical, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
+
 
 subplot(2,3,3)   %Temporal demand
 bar(task_cat,mean(temporal,1))
@@ -63,8 +85,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Temporal demand score")
+set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,temporal, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
 
 subplot(2,3,4)   %Performance
@@ -75,8 +97,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Performance score")
+set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,performance, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
 
 subplot(2,3,5)   %Effort
@@ -87,8 +109,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Effort score")
+set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,effort, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
 
 subplot(2,3,6)  %frustration demand
@@ -99,6 +121,7 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel("Rating")
 title("Frustration score")
+set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,frustration, '.-','MarkerSize',14);
 legend(p,leg)
 hold off
@@ -106,570 +129,634 @@ hold off
 %% Alphabet Rate
 
 %wws vs alphabet rate
-figure(9) 
-subplot(2,2,1)
-plot(wws(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Weighted workload scores vs Alphabet Rate: Stand 2')
+figure(4)
+k=1;
+for i=1:4
+    subplot(2,2,i)
+    hold on
+    for j=1:length(subjects)
+        plot(wws(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Alphabet Rate')
+    xlabel('Workload rating')
+    title(task_cat(i))
+  
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Weighted Workload Score vs Alphabet Rate')
 
-subplot(2,2,2)
-plot(wws(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Weighted workload scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(wws(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Weighted workload scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(wws(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Weighted workload scores vs Alphabet Rate: Walk 3')
-
-figure(22) %uws vs alphabet rate
-subplot(2,2,1)
-plot(uws(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Unweighted workload scores vs Alphabet Rate: Stand 2')
-
-subplot(2,2,2)
-plot(uws(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Unweighted workload scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(uws(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Unweighted workload scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(uws(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Unweighted workload scores vs Alphabet Rate: Walk 3')
+figure(5) %uws vs alphabet rate
+k=1;
+for i=1:4
+    subplot(2,2,i)
+    hold on
+    for j=1:length(subjects)
+        plot(uws(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:)); 
+    end
+    xlim([0 100])
+    ylabel('Alphabet Rate')
+    xlabel('Workload rating')
+    title(task_cat(i))
+   
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Uweighted Workload Score vs Alphabet Rate')
 
 %Mental vs alphabet rate
-figure(11) 
-subplot(2,2,1)
-plot(mental(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Mental Demand scores vs Alphabet Rate: Stand 2')
-
-subplot(2,2,2)
-plot(mental(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Mental Demand scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(mental(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Mental Demand scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(mental(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Mental Demand scores vs Alphabet Rate: Walk 3')
+figure(6)
+k=1;
+for i=1:4
+    subplot(2,2,i)
+    hold on
+    for j=1:length(subjects)
+        plot(mental(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:))
+    end
+    xlim([0 100])
+    ylabel('Alphabet Rate')
+    xlabel('Workload rating')
+    title(task_cat(i))
+  
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Mental Demand Subscore vs Alphabet Rate')
 
 %Temporal vs alphabet rate
-figure(23) 
-subplot(2,2,1)
-plot(temporal(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Temporal Demand scores vs Alphabet Rate: Stand 2')
-
-subplot(2,2,2)
-plot(temporal(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Temporal Demand scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(temporal(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Temporal Demand scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(temporal(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Temporal Demand scores vs Alphabet Rate: Walk 3')
+figure(7) 
+k=1;
+for i=1:4
+    subplot(2,2,i)
+    hold on
+    for j=1:length(subjects)
+        plot(temporal(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('AlphabetRate')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+    k=k+1;
+end
+ legend(leg)
+sgtitle('Temporal Demand Subscore vs Alphabet Rate')
 
 %Physical vs alphabet rate
-figure(24) 
-subplot(2,2,1)
-plot(physical(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Physical Demand scores vs Alphabet Rate: Stand 2')
-
-subplot(2,2,2)
-plot(physical(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Physical Demand scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(physical(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Physical Demand scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(physical(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Physical Demand scores vs Alphabet Rate: Walk 3')
+figure(8)
+k=1;
+for i=1:4     
+    subplot(2,2,i)     
+    hold on     
+    for j=1:length(subjects)
+        plot(physical(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('AlphabetRate')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Physical Demand Subscore vs Alphabet Rate')
 
 %performance vs alphabet rate
-figure(26) 
-subplot(2,2,1)
-plot(performance(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Performance scores vs Alphabet Rate: Stand 2')
+figure(9)
+k=1;
+for i=1:4     
+    subplot(2,2,i)     
+    hold on     
+    for j=1:length(subjects)
+        plot(performance(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Alphabet Rate')
+    xlabel('Workload rating')
+    title(task_cat(i)
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Performance Subscore vs Alphabet Rate')
 
-subplot(2,2,2)
-plot(performance(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Performance scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(performance(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Performance scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(performance(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Performance scores vs Alphabet Rate: Walk 3')
 
 %Effort vs alphabet rate
-figure(25) 
-subplot(2,2,1)
-plot(effort(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Effort scores vs Alphabet Rate: Stand 2')
-
-subplot(2,2,2)
-plot(effort(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Effort scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(effort(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Effort scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(effort(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Effort scores vs Alphabet Rate: Walk 3')
+figure(10)
+k=1;
+for i=1:4     
+    subplot(2,2,i)     
+    hold on     
+    for j=1:length(subjects)
+        plot(effort(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Alphabet Rate')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Effort Subscore vs Alphabet Rate')
  
 %Frustration vs alphabet rate
-figure(27) 
-subplot(2,2,1)
-plot(frustration(:,1),alphabetArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Frustration scores vs Alphabet Rate: Stand 2')
-
-subplot(2,2,2)
-plot(frustration(:,2),alphabetArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Frustration scores vs Alphabet Rate: Stand 3')
-
-subplot(2,2,3)
-plot(frustration(:,3),alphabetArray(:,3),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Frustration scores vs Alphabet Rate: Walk 2')
-
-subplot(2,2,4)
-plot(frustration(:,4),alphabetArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('AlphabetRate')
-xlabel('Workload rating')
-title('Frustration scores vs Alphabet Rate: Walk 3')
+figure(11)
+k=1;
+for i=1:4     
+    subplot(2,2,i)     
+    hold on     
+    for j=1:length(subjects)
+        plot(frustration(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Alphabet Rate')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Frustration Subscore vs Alphabet Rate')
 
 %% fNirs
 
 %wws vs fnirs
-figure(12) 
-subplot(2,3,1)
-plot(wws(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Weighted Workload vs fNIRS: Stand 2')
-
-subplot(2,3,2)
-plot(wws(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Weighted Workload vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(wws(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Weighted Workload vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(wws(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Weighted Workload vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(wws(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Weighted Workload vs fNIRS: Walk')
+figure(12)
+k=1;
+for i=1:6
+    if i==3
+    else
+        subplot(2,3,i)     
+        hold on
+        for j=1:length(subjects)
+            plot(wws(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        title(task_cat(k))
+        hold off
+        k=k+1;
+    end
+end
+legend(leg)
+sgtitle('Weighted Workload Score vs fNIRS')
 
 %Uws vs fnirs
-figure(11) 
-subplot(2,3,1)
-plot(uws(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Unweighted Workload vs fNIRS: Stand 2')
-
-subplot(2,3,2)
-plot(uws(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Unweighted Workload vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(uws(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Unweighted Workload vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(uws(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Unweighted Workload vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(uws(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Unweighted Workload vs fNIRS: Walk')
+figure(13) 
+k=1; 
+for i=1:6     
+    if i==3     
+    else
+        subplot(2,3,i)              
+        hold on         
+        for j=1:length(subjects)
+            plot(uws(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        title(task_cat(k))
+        hold off
+        k=k+1;
+    end
+end
+legend(leg)
+sgtitle('Unweighted Workload Score vs fNIRS')
 
 %Mental vs fnirs
-figure(13) 
-subplot(2,3,1)
-plot(mental(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Mental Demand vs fNIRS: Stand 2')
-
-subplot(2,3,2)
-plot(mental(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Mental Demand vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(wws(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Mental Demand vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(wws(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Mental Demand vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(wws(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Mental Demand vs fNIRS: Walk')
+figure(14) 
+k=1; 
+for i=1:6     
+    if i==3     
+    else
+        subplot(2,3,i)              
+        hold on         
+        for j=1:length(subjects)
+            plot(mental(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        title(task_cat(k))
+        hold off
+        k=k+1;    
+    end
+end
+legend(leg)
+sgtitle('Mental Demand Subscore vs fNIRS')
 
 %Physical vs fnirs
-figure(16) 
-subplot(2,3,1)
-plot(physical(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Physical Demand vs fNIRS: Stand 2')
-
-subplot(2,3,2)
-plot(physical(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Physical Demand vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(physical(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Physical Demand vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(physical(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Physical Demand vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(physical(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Physical Demand vs fNIRS: Walk')
+figure(15) 
+k=1; 
+for i=1:6     
+    if i==3     
+    else
+        subplot(2,3,i)              
+        hold on         
+        for j=1:length(subjects)
+            plot(physical(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        title(task_cat(k))
+        hold off
+        k=k+1;    
+    end
+end
+legend(leg)
+sgtitle('Physical Demand Subscore vs fNIRS')
 
 %Temporal vs fnirs
-figure(17) 
-subplot(2,3,1)
-plot(temporal(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Temporal Demand vs fNIRS: Stand 2')
-
-subplot(2,3,2)
-plot(temporal(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Temporal Demand vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(temporal(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Temporal Demand vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(temporal(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Temporal Demand vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(temporal(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Temporal Demand vs fNIRS: Walk')
+figure(16) 
+k=1; 
+for i=1:6     
+    if i==3     
+    else
+        subplot(2,3,i)              
+        hold on         
+        for j=1:length(subjects)
+            plot(temporal(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        hold off
+        k=k+1;   
+    end
+end
+legend(leg)
+sgtitle('Temporal Demand Subscore vs fNIRS')
 
 %Performmance vs fnirs
-figure(18) 
-subplot(2,3,1)
-plot(performance(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Performance vs fNIRS: Stand 2')
-
-subplot(2,3,2)
-plot(performance(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Performance vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(performance(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Performance vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(performance(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Performance vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(performance(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Performance vs fNIRS: Walk')
+figure(17) 
+k=1; 
+for i=1:6     
+    if i==3     
+    else
+        subplot(2,3,i)              
+        hold on         
+        for j=1:length(subjects)
+            plot(performance(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        title(task_cat(k))
+        hold off
+        k=k+1;   
+    end
+end
+legend(leg)
+sgtitle('Performance Subscore vs fNIRS')
 
 %Effort vs fnirs
-figure(19)
-subplot(2,3,1)
-plot(effort(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Effort vs fNIRS: Stand 2')
-
-subplot(2,3,2)
-plot(effort(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Effort vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(effort(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Effort vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(effort(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Effort vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(effort(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Effort vs fNIRS: Walk')
+figure(18)
+k=1; 
+for i=1:6     
+    if i==3     
+    else
+        subplot(2,3,i)              
+        hold on         
+        for j=1:length(subjects)
+            plot(effort(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        title(task_cat(k))
+        hold off
+        k=k+1;   
+    end
+end
+legend(leg)
+sgtitle('Effort Subscore vs fNIRS')
 
 %Frustration vs fnirs
-figure(20) 
-subplot(2,3,1)
-plot(frustration(:,1),fNIRSArray(:,1),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Frustration vs fNIRS: Stand 2')
+figure(19) 
+k=1; 
+for i=1:6     
+    if i==3     
+    else
+        subplot(2,3,i)              
+        hold on         
+        for j=1:length(subjects)
+            plot(frustration(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        end
+        xlim([0 100])
+        ylabel('fNIRS')
+        xlabel('Workload rating')
+        hold off
+        k=k+1;  
+    end
+end
+legend(leg)
+sgtitle('Frustration Subscore vs fNIRS')
 
-subplot(2,3,2)
-plot(frustration(:,2),fNIRSArray(:,2),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Frustration vs fNIRS: Stand 3')
-
-subplot(2,3,4)
-plot(frustration(:,3),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Frustration vs fNIRS: Walk 2')
-
-subplot(2,3,5)
-plot(frustration(:,4),fNIRSArray(:,4),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Frustration vs fNIRS: Walk 3')
-
-subplot(2,3,6)
-plot(frustration(:,5),fNIRSArray(:,5),'.','MarkerSize',12);
-xlim([0 100])
-ylabel('fNIRS')
-xlabel('Workload rating')
-title('Frustration vs fNIRS: Walk')
 
 %% alphabet vs fNirs
 
-figure(15) %alphabet vs fnirs
-subplot(2,2,1)
-plot(transpose(alphabetArray(:,1)),transpose(fNIRSArray(:,1)),'.','MarkerSize',12);
-ylabel('fNIRS')
-xlabel('alphabet rate')
-title('fNIRS vs Alphabet Rate: Stand 2')
+figure(20) %alphabet vs fnirs
+k=1;
+for i=1:4     
+    subplot(2,2,i)     
+    hold on     
+    for j=1:length(subjects)
+        plot(transpose(alphabetArray(j,k)),transpose(fNIRSArray(j,k)),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    ylabel('fNIRS')
+    xlabel('alphabet rate')
+    title(task_cat(i))
+    hold off
+    k=k+1;
+end
+legend(leg)
+sgtitle('Alphabet Rate vs fNIRS')
 
-subplot(2,2,2)
-plot(transpose(alphabetArray(:,2)),transpose(fNIRSArray(:,2)),'.','MarkerSize',12);
-ylabel('fNIRS')
-xlabel('alphabet rate')
-title('fNIRS vs Alphabet Rate: Stand 3')
+%% Walk speed vs workload scores
 
-subplot(2,2,3)
-plot(transpose(alphabetArray(:,3)),transpose(fNIRSArray(:,3)),'.','MarkerSize',12);
-ylabel('fNIRS')
-xlabel('alphabet rate')
-title('fNIRS vs Alphabet Rate: Walk 2')
+% wws vs walk speed
+figure(21) 
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(wws(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Weighted Workload Score vs Walk Speed')
 
-subplot(2,2,4)
-plot(transpose(alphabetArray(:,4)),transpose(fNIRSArray(:,4)),'.','MarkerSize',12);
-ylabel('fNIRS')
-xlabel('alphabet rate')
-title('fNIRS vs Alphabet Rate: Walk 3')
+figure(22) %uws vs walk speed
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(uws(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Unweighted Workload Score vs Walk Speed')
 
+%Mental vs walk speed
+figure(23) 
+subplot(1,3,1)
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(mental(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Mental Demand Subscore vs Walk Speed')
 
+%Temporal vs walk speed
+figure(24)
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(temporal(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Temporal Demand Subscore vs Walk Speed')
 
+%Physical vs walk speed
+figure(25) 
+subplot(1,3,1)
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(physical(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Physical Demand Subscore vs Walk Speed')
 
+%performance vs walk speed
+figure(26)
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(performance(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Performance Subscore vs Walk Speed')
 
+%Effort vs walk speed
+figure(27)
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(effort(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Effort Subscore vs Walk Speed')
+
+%Frustration vs walk speed
+figure(28)
+
+for i=3:5     
+    subplot(1,3,i-2)     
+    hold on     
+    for j=1:length(subjects)
+        plot(frustration(j,i),speedArray(j,i-2),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+    end
+    xlim([0 100])
+    ylabel('Walk Speed')
+    xlabel('Workload rating')
+    title(task_cat(i))
+    hold off
+end
+legend(leg)
+sgtitle('Frustration Subscore vs Walk Speed')
+
+%% Correlations
+
+% workload vs alphabet
+for j=1:4
+    [r,pval]=corr(wws(:,j),alphabetArray(:,j),'rows','complete');
+    results.pear.WwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),alphabetArray(:,j));
+    results.pear.UwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),alphabetArray(:,j));
+    results.pear.MentalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),alphabetArray(:,j));
+    results.pear.PhysicalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),alphabetArray(:,j));
+    results.pear.TemporalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),alphabetArray(:,j));
+    results.pear.PerformanceAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),alphabetArray(:,j));
+    results.pear.EffortAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),alphabetArray(:,j));
+    results.pear.FrustrationAlphabet(j,:)=[r,pval];
+    
+    [r,pval]=corr(wws(:,j),alphabetArray(:,j),'rows','complete','type','spearman');
+    results.spear.WwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.UwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.MentalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.PhysicalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.TemporalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.PerformanceAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.EffortAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.FrustrationAlphabet(j,:)=[r,pval];
+end
+
+results.wwsVsAlphabet=array2table([results.pear.WwsAlphabet results.spear.WwsAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.uwsVsAlphabet=array2table([results.pear.UwsAlphabet results.spear.UwsAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.mentalVsAlphabet=array2table([results.pear.MentalAlphabet results.spear.MentalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.temporalVsAlphabet=array2table([results.pear.TemporalAlphabet results.spear.TemporalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.physicalVsAlphabet=array2table([results.pear.PhysicalAlphabet results.spear.PhysicalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.performanceVsAlphabet=array2table([results.pear.PerformanceAlphabet results.spear.PerformanceAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.effortVsAlphabet=array2table([results.pear.EffortAlphabet results.spear.EffortAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.frustrationVsAlphabet=array2table([results.pear.FrustrationAlphabet results.spear.FrustrationAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+
+% workload vs fNIRS
+for j=1:5
+    [r,pval]=corr(wws(:,j),fNIRSArray(:,j),'rows','complete');
+    results.pear.WwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),fNIRSArray(:,j));
+    results.pear.UwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),fNIRSArray(:,j));
+    results.pear.MentalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),fNIRSArray(:,j));
+    results.pear.PhysicalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),fNIRSArray(:,j));
+    results.pear.TemporalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),fNIRSArray(:,j));
+    results.pear.PerformancefNIRS(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),fNIRSArray(:,j));
+    results.pear.EffortfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),fNIRSArray(:,j));
+    results.pear.FrustrationfNIRS(j,:)=[r,pval];
+    
+    [r,pval]=corr(wws(:,j),fNIRSArray(:,j),'rows','complete','type','spearman');
+    results.spear.WwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.UwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.MentalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.PhysicalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.TemporalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.PerformancefNIRS(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.EffortfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.FrustrationfNIRS(j,:)=[r,pval];
+end
+
+results.wwsVsfNIRS=array2table([results.pear.WwsfNIRS results.spear.WwsfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.uwsVsfNIRS=array2table([results.pear.UwsfNIRS results.spear.UwsfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.mentalVsfNIRS=array2table([results.pear.MentalfNIRS results.spear.MentalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.temporalVsfNIRS=array2table([results.pear.TemporalfNIRS results.spear.TemporalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.physicalVsfNIRS=array2table([results.pear.PhysicalfNIRS results.spear.PhysicalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.performanceVsfNIRS=array2table([results.pear.PerformancefNIRS results.spear.PerformancefNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.effortVsfNIRS=array2table([results.pear.EffortfNIRS results.spear.EffortfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.frustrationVsfNIRS=array2table([results.pear.FrustrationfNIRS results.spear.FrustrationfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+
+%workload vs walk speed
+for j=3:5    
+    [r,pval]=corr(wws(:,j),speedArray(:,j-2),'rows','complete');
+    results.pear.WwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),speedArray(:,j-2));
+    results.pear.UwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),speedArray(:,j-2));
+    results.pear.MentalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),speedArray(:,j-2));
+    results.pear.PhysicalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),speedArray(:,j-2));
+    results.pear.TemporalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),speedArray(:,j-2));
+    results.pear.PerformanceSpeed(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),speedArray(:,j-2));
+    results.pear.EffortSpeed(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),speedArray(:,j-2));
+    results.pear.FrustrationSpeed(j,:)=[r,pval];
+    
+    [r,pval]=corr(wws(:,j),speedArray(:,j-2),'rows','complete','type','spearman');
+    results.spear.WwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.UwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.MentalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.PhysicalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.TemporalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.PerformanceSpeed(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.EffortSpeed(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.FrustrationSpeed(j,:)=[r,pval];
+end
+
+results.wwsVsSpeed=array2table([results.pear.WwsSpeed(3:5,:) results.spear.WwsSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.uwsVsSpeed=array2table([results.pear.UwsSpeed(:,:) results.spear.UwsSpeed(:,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.mentalVsSpeed=array2table([results.pear.MentalSpeed(:,:) results.spear.MentalSpeed(:,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.temporalVsSpeed=array2table([results.pear.TemporalSpeed(:,:) results.spear.TemporalSpeed(:,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.physicalVsSpeed=array2table([results.pear.PhysicalSpeed(:,:) results.spear.PhysicalSpeed(:,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.performanceVsSpeed=array2table([results.pear.PerformanceSpeed(:,:) results.spear.PerformanceSpeed(:,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.effortVsSpeed=array2table([results.pear.EffortSpeed(:,:) results.spear.EffortSpeed(:,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.frustrationVsSpeed=array2table([results.pear.FrustrationSpeed(:,:) results.spear.FrustrationSpeed(:,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+
+results=rmfield(results, ["pear" "spear"]);
