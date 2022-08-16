@@ -74,6 +74,7 @@ ylabel("Rating")
 title("Physical demand score")
 set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,physical, '.-','MarkerSize',14);
+legend(p,leg)
 hold off
 
 
@@ -130,155 +131,135 @@ hold off
 
 %wws vs alphabet rate
 figure(4)
-k=1;
 for i=1:4
     subplot(2,2,i)
     hold on
     for j=1:length(subjects)
-        plot(wws(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(wws(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
     end
     xlim([0 100])
     ylabel('Alphabet Rate')
     xlabel('Workload rating')
     title(task_cat(i))
-  
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Weighted Workload Score vs Alphabet Rate')
 
 figure(5) %uws vs alphabet rate
-k=1;
 for i=1:4
     subplot(2,2,i)
     hold on
     for j=1:length(subjects)
-        plot(uws(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:)); 
+        plot(uws(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:)); 
     end
     xlim([0 100])
     ylabel('Alphabet Rate')
     xlabel('Workload rating')
     title(task_cat(i))
-   
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Uweighted Workload Score vs Alphabet Rate')
 
 %Mental vs alphabet rate
 figure(6)
-k=1;
 for i=1:4
     subplot(2,2,i)
     hold on
     for j=1:length(subjects)
-        plot(mental(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:))
+        plot(mental(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:))
     end
     xlim([0 100])
     ylabel('Alphabet Rate')
     xlabel('Workload rating')
     title(task_cat(i))
-  
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Mental Demand Subscore vs Alphabet Rate')
 
 %Temporal vs alphabet rate
 figure(7) 
-k=1;
 for i=1:4
     subplot(2,2,i)
     hold on
     for j=1:length(subjects)
-        plot(temporal(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(temporal(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
     end
     xlim([0 100])
     ylabel('AlphabetRate')
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
-    k=k+1;
 end
  legend(leg)
 sgtitle('Temporal Demand Subscore vs Alphabet Rate')
 
 %Physical vs alphabet rate
 figure(8)
-k=1;
 for i=1:4     
     subplot(2,2,i)     
     hold on     
     for j=1:length(subjects)
-        plot(physical(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(physical(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
     end
     xlim([0 100])
     ylabel('AlphabetRate')
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Physical Demand Subscore vs Alphabet Rate')
 
 %performance vs alphabet rate
 figure(9)
-k=1;
 for i=1:4     
     subplot(2,2,i)     
     hold on     
     for j=1:length(subjects)
-        plot(performance(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(performance(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
     end
     xlim([0 100])
     ylabel('Alphabet Rate')
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Performance Subscore vs Alphabet Rate')
 
-
 %Effort vs alphabet rate
 figure(10)
-k=1;
 for i=1:4     
     subplot(2,2,i)     
     hold on     
     for j=1:length(subjects)
-        plot(effort(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(effort(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
     end
     xlim([0 100])
     ylabel('Alphabet Rate')
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Effort Subscore vs Alphabet Rate')
  
 %Frustration vs alphabet rate
 figure(11)
-k=1;
 for i=1:4     
     subplot(2,2,i)     
     hold on     
     for j=1:length(subjects)
-        plot(frustration(j,k),alphabetArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(frustration(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
     end
     xlim([0 100])
     ylabel('Alphabet Rate')
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Frustration Subscore vs Alphabet Rate')
@@ -387,6 +368,7 @@ for i=1:6
         xlim([0 100])
         ylabel('fNIRS')
         xlabel('Workload rating')
+        title(task_cat(k))
         hold off
         k=k+1;   
     end
@@ -452,6 +434,7 @@ for i=1:6
         xlim([0 100])
         ylabel('fNIRS')
         xlabel('Workload rating')
+        title(task_cat(k))
         hold off
         k=k+1;  
     end
@@ -463,18 +446,16 @@ sgtitle('Frustration Subscore vs fNIRS')
 %% alphabet vs fNirs
 
 figure(20) %alphabet vs fnirs
-k=1;
 for i=1:4     
     subplot(2,2,i)     
     hold on     
     for j=1:length(subjects)
-        plot(transpose(alphabetArray(j,k)),transpose(fNIRSArray(j,k)),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(transpose(alphabetArray(j,i)),transpose(fNIRSArray(j,i)),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
     end
     ylabel('fNIRS')
     xlabel('alphabet rate')
     title(task_cat(i))
     hold off
-    k=k+1;
 end
 legend(leg)
 sgtitle('Alphabet Rate vs fNIRS')
