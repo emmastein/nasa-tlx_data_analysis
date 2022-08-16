@@ -2,11 +2,11 @@
 
 %% Variables
 
-subjects=[1:4 5:7 9 11:12];
+subjects=[1:7 9 11:12];
 
 %% load tlx
 
-
+clear AUF;
 j=1;
 for k=subjects
     if j==1

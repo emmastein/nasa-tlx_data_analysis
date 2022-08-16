@@ -135,7 +135,7 @@ for i=1:4
     subplot(2,2,i)
     hold on
     for j=1:length(subjects)
-        plot(wws(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
+        plot(wws(j,i),alphabetArray(j,i),'.','MarkerSize',12);
     end
     xlim([0 100])
     ylabel('Alphabet Rate')

@@ -1,12 +1,12 @@
 
 
-function [subject]= enterData(fileName,j)
+function [subjectData]= enterData(filePlace,subID)
 %enterDATA loads data from an excel sheet to a table in matlab
 
 
 %% reads and seperates data from excel file
 
-data=readtable(fileName);   %load file specifed in fileName
+data=readtable(filePlace);   %load file specifed in fileName
 reported_score=table2array(data(1:6,1:5));  %break up data into the two seperate arrays: scores and weights
 reported_weight=string(table2array(data(:,6:8)));
 
@@ -24,10 +24,10 @@ end
 %Checks to ensure weights add up to the correct number, if not a warning is given
 if sum(weight_count,1)==[15 15 15]
 else
-    warning("Weights in AUF%02d do not add up to 15. Check spelling in the excel sheet for weights" ,j)
+    warning("Weights in AUF%02d do not add up to 15. Check spelling in the excel sheet for weights" ,subID)
 end
 
-%Create a 3 by 5 array to match the size of score array
+%Create a 6 by 5 array to match the size of score array
 weight=[weight_count(:,1) weight_count(:,1) weight_count(:,2) weight_count(:,2) weight_count(:,3)];
 
 %creates table that stores each particpants information in a table attached to a structure
@@ -36,8 +36,8 @@ task_cat=reordercats(task_cat,["stand 2" "stand 3" "walk 2" "walk 3" "walk"]);
 task_string=string(task_cat);
 sub_score=string(["mental" "physical" "temporal" "performance" "effort" "frustration"]);
 
-subject.score=array2table(reported_score,'VariableNames',task_string ,'rowNames',sub_score);
-subject.weight=array2table(weight,'VariableNames',task_string ,'rowNames',sub_score);
+subjectData.score=array2table(reported_score,'VariableNames',task_string ,'rowNames',sub_score);
+subjectData.weight=array2table(weight,'VariableNames',task_string ,'rowNames',sub_score);
 
 end
 
