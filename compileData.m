@@ -6,7 +6,9 @@ subjects=[1:7 9 11:12];
 
 %% load tlx
 
-clear AUF;
+clear AUF leg;
+close all;
+
 j=1;
 for k=subjects
     if j==1
