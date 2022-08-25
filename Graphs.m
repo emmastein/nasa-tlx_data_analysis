@@ -133,8 +133,11 @@ hold off
 
 %% Alphabet Rate
 
+set(groot,'DefaultFigurePosition',[100,100,800,600])
+
 %wws vs alphabet rate
 figure(4)
+
 for i=1:4
     subplot(2,2,i)
     hold on
@@ -148,7 +151,8 @@ for i=1:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
 sgtitle('Weighted Workload Score vs Alphabet Rate')
 
 figure(5) %uws vs alphabet rate
@@ -165,7 +169,8 @@ for i=1:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
 sgtitle('Uweighted Workload Score vs Alphabet Rate')
 
 %Mental vs alphabet rate
@@ -201,7 +206,8 @@ for i=1:4
     title(task_cat(i))
     hold off
 end
- legend(leg)
+lgd=legend(leg,'Location','none')
+set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659]);
 sgtitle('Temporal Demand Subscore vs Alphabet Rate')
 
 %Physical vs alphabet rate
@@ -219,7 +225,8 @@ for i=1:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
 sgtitle('Physical Demand Subscore vs Alphabet Rate')
 
 %performance vs alphabet rate
@@ -237,7 +244,8 @@ for i=1:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
 sgtitle('Performance Subscore vs Alphabet Rate')
 
 %Effort vs alphabet rate
@@ -255,7 +263,8 @@ for i=1:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
 sgtitle('Effort Subscore vs Alphabet Rate')
  
 %Frustration vs alphabet rate
@@ -278,6 +287,8 @@ sgtitle('Frustration Subscore vs Alphabet Rate')
 
 %% fNirs
 
+set(groot,'DefaultFigurePosition',[100,100,1000,600])
+
 %wws vs fnirs
 figure(12)
 k=1;
@@ -298,7 +309,8 @@ for i=1:6
         k=k+1;
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Weighted Workload Score vs fNIRS')
 
 %Uws vs fnirs
@@ -321,7 +333,8 @@ for i=1:6
         k=k+1;
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Unweighted Workload Score vs fNIRS')
 
 %Mental vs fnirs
@@ -344,7 +357,8 @@ for i=1:6
         k=k+1;    
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Mental Demand Subscore vs fNIRS')
 
 %Physical vs fnirs
@@ -367,7 +381,8 @@ for i=1:6
         k=k+1;    
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Physical Demand Subscore vs fNIRS')
 
 %Temporal vs fnirs
@@ -390,7 +405,8 @@ for i=1:6
         k=k+1;   
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Temporal Demand Subscore vs fNIRS')
 
 %Performmance vs fnirs
@@ -413,7 +429,8 @@ for i=1:6
         k=k+1;   
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Performance Subscore vs fNIRS')
 
 %Effort vs fnirs
@@ -436,7 +453,8 @@ for i=1:6
         k=k+1;   
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Effort Subscore vs fNIRS')
 
 %Frustration vs fnirs
@@ -459,7 +477,8 @@ for i=1:6
         k=k+1;  
     end
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
 sgtitle('Frustration Subscore vs fNIRS')
 
 
@@ -482,6 +501,8 @@ sgtitle('Alphabet Rate vs fNIRS')
 
 %% Walk speed vs workload scores
 
+set(groot,'DefaultFigurePosition',[100,100,1100,300])
+
 % wws vs walk speed
 figure(21) 
 for i=3:5     
@@ -497,7 +518,8 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Weighted Workload Score vs Walk Speed')
 
 figure(22) %uws vs walk speed
@@ -514,7 +536,8 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Unweighted Workload Score vs Walk Speed')
 
 %Mental vs walk speed
@@ -533,7 +556,8 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Mental Demand Subscore vs Walk Speed')
 
 %Temporal vs walk speed
@@ -551,7 +575,8 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Temporal Demand Subscore vs Walk Speed')
 
 %Physical vs walk speed
@@ -570,7 +595,8 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Physical Demand Subscore vs Walk Speed')
 
 %performance vs walk speed
@@ -588,7 +614,8 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Performance Subscore vs Walk Speed')
 
 %Effort vs walk speed
@@ -606,12 +633,12 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Effort Subscore vs Walk Speed')
 
 %Frustration vs walk speed
 figure(28)
-
 for i=3:5     
     subplot(1,3,i-2)     
     hold on     
@@ -625,7 +652,8 @@ for i=3:5
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg,'Location','none');
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
 sgtitle('Frustration Subscore vs Walk Speed')
 
 %% deltaSpeed Vs Workload
