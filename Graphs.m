@@ -28,6 +28,242 @@ for j=1:length(subjects)+1
 end
 set(groot,'DefaultAxesColorOrder',ColorOrd) %set axis color to match the correct color for participants
 
+%% Correlations
+
+% workload vs alphabet
+for j=1:4
+    [r,pval]=corr(wws(:,j),alphabetArray(:,j),'rows','complete');
+    results.pear.WwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),alphabetArray(:,j));
+    results.pear.UwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),alphabetArray(:,j));
+    results.pear.MentalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),alphabetArray(:,j));
+    results.pear.PhysicalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),alphabetArray(:,j));
+    results.pear.TemporalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),alphabetArray(:,j));
+    results.pear.PerformanceAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),alphabetArray(:,j));
+    results.pear.EffortAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),alphabetArray(:,j));
+    results.pear.FrustrationAlphabet(j,:)=[r,pval];
+    
+    [r,pval]=corr(wws(:,j),alphabetArray(:,j),'rows','complete','type','spearman');
+    results.spear.WwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.UwsAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.MentalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.PhysicalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.TemporalAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.PerformanceAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.EffortAlphabet(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),alphabetArray(:,j),'type','spearman');
+    results.spear.FrustrationAlphabet(j,:)=[r,pval];
+end
+
+results.workloadVsAlphabet.wwsVsAlphabet=array2table([results.pear.WwsAlphabet results.spear.WwsAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.workloadVsAlphabet.uwsVsAlphabet=array2table([results.pear.UwsAlphabet results.spear.UwsAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.workloadVsAlphabet.mentalVsAlphabet=array2table([results.pear.MentalAlphabet results.spear.MentalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.workloadVsAlphabet.temporalVsAlphabet=array2table([results.pear.TemporalAlphabet results.spear.TemporalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.workloadVsAlphabet.physicalVsAlphabet=array2table([results.pear.PhysicalAlphabet results.spear.PhysicalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.workloadVsAlphabet.performanceVsAlphabet=array2table([results.pear.PerformanceAlphabet results.spear.PerformanceAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.workloadVsAlphabet.effortVsAlphabet=array2table([results.pear.EffortAlphabet results.spear.EffortAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+results.workloadVsAlphabet.frustrationVsAlphabet=array2table([results.pear.FrustrationAlphabet results.spear.FrustrationAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
+
+% workload vs fNIRS
+for j=1:5
+    [r,pval]=corr(wws(:,j),fNIRSArray(:,j),'rows','complete');
+    results.pear.WwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),fNIRSArray(:,j));
+    results.pear.UwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),fNIRSArray(:,j));
+    results.pear.MentalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),fNIRSArray(:,j));
+    results.pear.PhysicalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),fNIRSArray(:,j));
+    results.pear.TemporalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),fNIRSArray(:,j));
+    results.pear.PerformancefNIRS(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),fNIRSArray(:,j));
+    results.pear.EffortfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),fNIRSArray(:,j));
+    results.pear.FrustrationfNIRS(j,:)=[r,pval];
+    
+    [r,pval]=corr(wws(:,j),fNIRSArray(:,j),'rows','complete','type','spearman');
+    results.spear.WwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.UwsfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.MentalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.PhysicalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.TemporalfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.PerformancefNIRS(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.EffortfNIRS(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),fNIRSArray(:,j),'type','spearman');
+    results.spear.FrustrationfNIRS(j,:)=[r,pval];
+end
+
+results.workloadVsfNIRS.wwsVsfNIRS=array2table([results.pear.WwsfNIRS results.spear.WwsfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.workloadVsfNIRS.uwsVsfNIRS=array2table([results.pear.UwsfNIRS results.spear.UwsfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.workloadVsfNIRS.mentalVsfNIRS=array2table([results.pear.MentalfNIRS results.spear.MentalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.workloadVsfNIRS.temporalVsfNIRS=array2table([results.pear.TemporalfNIRS results.spear.TemporalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.workloadVsfNIRS.physicalVsfNIRS=array2table([results.pear.PhysicalfNIRS results.spear.PhysicalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.workloadVsfNIRS.performanceVsfNIRS=array2table([results.pear.PerformancefNIRS results.spear.PerformancefNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.workloadVsfNIRS.effortVsfNIRS=array2table([results.pear.EffortfNIRS results.spear.EffortfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+results.workloadVsfNIRS.frustrationVsfNIRS=array2table([results.pear.FrustrationfNIRS results.spear.FrustrationfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
+
+%workload vs walk speed
+for j=3:5    
+    [r,pval]=corr(wws(:,j),speedArray(:,j-2),'rows','complete');
+    results.pear.WwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),speedArray(:,j-2));
+    results.pear.UwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),speedArray(:,j-2));
+    results.pear.MentalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),speedArray(:,j-2));
+    results.pear.PhysicalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),speedArray(:,j-2));
+    results.pear.TemporalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),speedArray(:,j-2));
+    results.pear.PerformanceSpeed(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),speedArray(:,j-2));
+    results.pear.EffortSpeed(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),speedArray(:,j-2));
+    results.pear.FrustrationSpeed(j,:)=[r,pval];
+    
+    [r,pval]=corr(wws(:,j),speedArray(:,j-2),'rows','complete','type','spearman');
+    results.spear.WwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(uws(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.UwsSpeed(j,:)=[r,pval];
+    [r,pval]=corr(mental(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.MentalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(physical(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.PhysicalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(temporal(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.TemporalSpeed(j,:)=[r,pval];
+    [r,pval]=corr(performance(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.PerformanceSpeed(j,:)=[r,pval];
+    [r,pval]=corr(effort(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.EffortSpeed(j,:)=[r,pval];
+    [r,pval]=corr(frustration(:,j),speedArray(:,j-2),'type','spearman');
+    results.spear.FrustrationSpeed(j,:)=[r,pval];
+end
+
+results.workloadVsSpeed.wwsVsSpeed=array2table([results.pear.WwsSpeed(3:5,:) results.spear.WwsSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.workloadVsSpeed.uwsVsSpeed=array2table([results.pear.UwsSpeed(3:5,:) results.spear.UwsSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.workloadVsSpeed.mentalVsSpeed=array2table([results.pear.MentalSpeed(3:5,:) results.spear.MentalSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.workloadVsSpeed.temporalVsSpeed=array2table([results.pear.TemporalSpeed(3:5,:) results.spear.TemporalSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.workloadVsSpeed.physicalVsSpeed=array2table([results.pear.PhysicalSpeed(3:5,:) results.spear.PhysicalSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.workloadVsSpeed.performanceVsSpeed=array2table([results.pear.PerformanceSpeed(3:5,:) results.spear.PerformanceSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.workloadVsSpeed.effortVsSpeed=array2table([results.pear.EffortSpeed(3:5,:) results.spear.EffortSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+results.workloadVsSpeed.frustrationVsSpeed=array2table([results.pear.FrustrationSpeed(3:5,:) results.spear.FrustrationSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
+
+results=rmfield(results, ["pear" "spear"]);
+
+%Workload vs change in alphabet rate
+
+for j=2:4
+    [r,pval]=corr(wws(:,j),deltaAlphabet(:,j-1),'rows','complete');
+    [r2,pval2]=corr(wws(:,j),deltaAlphabet(:,j-1),'rows','complete','type','spearman');
+    placeHolder4.wws(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(uws(:,j),deltaAlphabet(:,j-1),'rows','complete');
+    [r2,pval2]=corr(uws(:,j),deltaAlphabet(:,j-1),'rows','complete','type','spearman');
+    placeHolder4.uws(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(mental(:,j),deltaAlphabet(:,j-1));
+    [r2,pval2]=corr(mental(:,j),deltaAlphabet(:,j-1),'type','spearman');
+    placeHolder4.mental(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(temporal(:,j),deltaAlphabet(:,j-1));
+    [r2,pval2]=corr(temporal(:,j),deltaAlphabet(:,j-1),'type','spearman');
+    placeHolder4.temporal(j,:)=[r pval r2 pval2];   
+    
+    [r,pval]=corr(physical(:,j),deltaAlphabet(:,j-1));
+    [r2,pval2]=corr(physical(:,j),deltaAlphabet(:,j-1),'type','spearman');
+    placeHolder4.physical(j,:)=[r pval r2 pval2];    
+    
+    [r,pval]=corr(performance(:,j),deltaAlphabet(:,j-1));
+    [r2,pval2]=corr(performance(:,j),deltaAlphabet(:,j-1),'type','spearman');
+    placeHolder4.performance(j,:)=[r pval r2 pval2];    
+    
+    [r,pval]=corr(effort(:,j),deltaAlphabet(:,j-1));
+    [r2,pval2]=corr(effort(:,j),deltaAlphabet(:,j-1),'type','spearman');
+    placeHolder4.effort(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(frustration(:,j),deltaAlphabet(:,j-1));
+    [r2,pval2]=corr(frustration(:,j),deltaAlphabet(:,j-1),'type','spearman');
+    placeHolder4.frustration(j,:)=[r pval r2 pval2];
+    
+end
+
+results.workloadVsDeltaAlphabet.wwsVsDeltaAlphabet=array2table(placeHolder4.wws(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+results.workloadVsDeltaAlphabet.uwsVsDeltaAlphabet=array2table(placeHolder4.uws(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+results.workloadVsDeltaAlphabet.mentalVsDeltaAlphabet=array2table(placeHolder4.mental(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+results.workloadVsDeltaAlphabet.temporalVsDeltaAlphabet=array2table(placeHolder4.temporal(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+results.workloadVsDeltaAlphabet.physicalVsDeltaAlphabet=array2table(placeHolder4.physical(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+results.workloadVsDeltaAlphabet.performanceVsDeltaAlphabet=array2table(placeHolder4.temporal(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+results.workloadVsDeltaAlphabet.effortVsDeltaAlphabet=array2table(placeHolder4.effort(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+results.workloadVsDeltaAlphabet.frustrationVsDeltaAlphabet=array2table(placeHolder4.frustration(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
+
+clear placeHolder4;
+
+% Workload vs change in speed
+for j=1:2
+    [r,pval]=corr(wws(:,j+2),deltaSpeed(:,j),'rows','complete');
+    [r2,pval2]=corr(wws(:,j+2),deltaSpeed(:,j),'rows','complete','type','spearman');
+    placeHolder4.wws(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(uws(:,j+2),deltaSpeed(:,j),'rows','complete');
+    [r2,pval2]=corr(uws(:,j+2),deltaSpeed(:,j),'rows','complete','type','spearman');
+    placeHolder4.uws(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(mental(:,j+2),deltaSpeed(:,j));
+    [r2,pval2]=corr(mental(:,j+2),deltaSpeed(:,j),'type','spearman');
+    placeHolder4.mental(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(temporal(:,j+2),deltaSpeed(:,j));
+    [r2,pval2]=corr(temporal(:,j+2),deltaSpeed(:,j),'type','spearman');
+    placeHolder4.temporal(j,:)=[r pval r2 pval2];   
+    
+    [r,pval]=corr(physical(:,j+2),deltaSpeed(:,j));
+    [r2,pval2]=corr(physical(:,j+2),deltaSpeed(:,j),'type','spearman');
+    placeHolder4.physical(j,:)=[r pval r2 pval2];    
+    
+    [r,pval]=corr(performance(:,j+2),deltaSpeed(:,j));
+    [r2,pval2]=corr(performance(:,j+2),deltaSpeed(:,j),'type','spearman');
+    placeHolder4.performance(j,:)=[r pval r2 pval2];    
+    
+    [r,pval]=corr(effort(:,j+2),deltaSpeed(:,j));
+    [r2,pval2]=corr(effort(:,j+2),deltaSpeed(:,j),'type','spearman');
+    placeHolder4.effort(j,:)=[r pval r2 pval2];
+    
+    [r,pval]=corr(frustration(:,j+2),deltaSpeed(:,j));
+    [r2,pval2]=corr(frustration(:,j+2),deltaSpeed(:,j),'type','spearman');
+    placeHolder4.frustration(j,:)=[r pval r2 pval2];
+    
+end
+
+results.workloadVsDeltaSpeed.wwsVsDeltaSpeed=array2table(placeHolder4.wws,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+results.workloadVsDeltaSpeed.uwsVsDeltaSpeed=array2table(placeHolder4.uws,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+results.workloadVsDeltaSpeed.mentalVsDeltaSpeed=array2table(placeHolder4.mental,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+results.workloadVsDeltaSpeed.temporalVsDeltaSpeed=array2table(placeHolder4.temporal,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+results.workloadVsDeltaSpeed.physicalVsDeltaSpeed=array2table(placeHolder4.physical,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+results.workloadVsDeltaSpeed.performanceVsDeltaSpeed=array2table(placeHolder4.temporal,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+results.workloadVsDeltaSpeed.effortVsDeltaSpeed=array2table(placeHolder4.effort,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+results.workloadVsDeltaSpeed.frustrationVsDeltaSpeed=array2table(placeHolder4.frustration,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
+
+
 %% Workload
 
 % Bar graph of all 8 workload categories for task vs workload
@@ -159,7 +395,16 @@ for i=1:4
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
+    coefficients = polyfit(wws([1:3 5:end],i), alphabetArray([1:3 5:end],i),1);
+    xFit = linspace(min(wws([1:3 5:end],i)), max(wws([1:3 5:end],i)), 1000);
+    yFit = polyval(coefficients , xFit);
+    hold on; 
+    plot(xFit, yFit, 'k-', 'LineWidth', 1);
+    value=sprintf("Pearson: %f, p-value: %f \nSpearman: %f, p-value: %f",results.workloadVsAlphabet.wwsVsAlphabet{i,1},results.workloadVsAlphabet.wwsVsAlphabet{i,2},results.workloadVsAlphabet.wwsVsAlphabet{i,3},results.workloadVsAlphabet.wwsVsAlphabet{i,4});
+    text(5,.2,value);
+    hold off
 end
+
 lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659]) %setting the legend to a mostly universal place in the figure
 sgtitle('Weighted Workload Score vs Alphabet Rate')
@@ -172,10 +417,18 @@ for i=1:4
         plot(uws(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:)); 
     end
     xlim([0 100])
-    ylim([.1 .7])
+    ylim([0 .7])
     ylabel('Alphabet Rate')
     xlabel('Workload rating')
     title(task_cat(i))
+    hold off
+        coefficients = polyfit(uws([1:3 5:end],i), alphabetArray([1:3 5:end],i),1);
+    xFit = linspace(min(uws(:,i)), max(uws(:,i)), 1000);
+    yFit = polyval(coefficients , xFit);
+    hold on; 
+    plot(xFit, yFit, 'k-', 'LineWidth', 1);
+    value=sprintf("Pearson: %f,  p-value: %f \nSpearman: %f,  p-value: %f",results.workloadVsAlphabet.uwsVsAlphabet{i,1},results.workloadVsAlphabet.uwsVsAlphabet{i,2},results.workloadVsAlphabet.uwsVsAlphabet{i,3},results.workloadVsAlphabet.uwsVsAlphabet{i,4});
+    text(5,.1,value);
     hold off
 end
 lgd=legend(leg,'Location','none');
@@ -334,13 +587,22 @@ for i=1:6
             plot(uws(j,k),fNIRSArray(j,k),'.','MarkerSize',12,'color' ,ColorOrd(j,:));
         end
         xlim([0 100])
-        ylim([-5 11])
+        ylim([-10 10])
         ylabel('fNIRS')
         xlabel('Workload rating')
         title(task_cat(k))
         hold off
+        coefficients = polyfit(uws(:,k), fNIRSArray(:,k),1);
+        xFit = linspace(min(uws(:,k)), max(uws(:,k)), 1000);
+        yFit = polyval(coefficients , xFit);
+        hold on; 
+        plot(xFit, yFit, 'k-', 'LineWidth', 1);
+        value=sprintf("Pearson: %f,  p-value: %f \nSpearman: %f,  p-value: %f",results.workloadVsfNIRS.uwsVsfNIRS{k,1},results.workloadVsfNIRS.uwsVsfNIRS{k,2},results.workloadVsfNIRS.uwsVsfNIRS{k,3},results.workloadVsfNIRS.uwsVsfNIRS{k,4});
+        text(5,-7,value);
+        hold off
         k=k+1;
     end
+    
 end
 lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
@@ -986,239 +1248,4 @@ for j=1:5
     end
 end
 
-
-%% Correlations
-
-% workload vs alphabet
-for j=1:4
-    [r,pval]=corr(wws(:,j),alphabetArray(:,j),'rows','complete');
-    results.pear.WwsAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(uws(:,j),alphabetArray(:,j));
-    results.pear.UwsAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(mental(:,j),alphabetArray(:,j));
-    results.pear.MentalAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(physical(:,j),alphabetArray(:,j));
-    results.pear.PhysicalAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(temporal(:,j),alphabetArray(:,j));
-    results.pear.TemporalAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(performance(:,j),alphabetArray(:,j));
-    results.pear.PerformanceAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(effort(:,j),alphabetArray(:,j));
-    results.pear.EffortAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(frustration(:,j),alphabetArray(:,j));
-    results.pear.FrustrationAlphabet(j,:)=[r,pval];
-    
-    [r,pval]=corr(wws(:,j),alphabetArray(:,j),'rows','complete','type','spearman');
-    results.spear.WwsAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(uws(:,j),alphabetArray(:,j),'type','spearman');
-    results.spear.UwsAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(mental(:,j),alphabetArray(:,j),'type','spearman');
-    results.spear.MentalAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(physical(:,j),alphabetArray(:,j),'type','spearman');
-    results.spear.PhysicalAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(temporal(:,j),alphabetArray(:,j),'type','spearman');
-    results.spear.TemporalAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(performance(:,j),alphabetArray(:,j),'type','spearman');
-    results.spear.PerformanceAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(effort(:,j),alphabetArray(:,j),'type','spearman');
-    results.spear.EffortAlphabet(j,:)=[r,pval];
-    [r,pval]=corr(frustration(:,j),alphabetArray(:,j),'type','spearman');
-    results.spear.FrustrationAlphabet(j,:)=[r,pval];
-end
-
-results.workloadVsAlphabet.wwsVsAlphabet=array2table([results.pear.WwsAlphabet results.spear.WwsAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-results.workloadVsAlphabet.uwsVsAlphabet=array2table([results.pear.UwsAlphabet results.spear.UwsAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-results.workloadVsAlphabet.mentalVsAlphabet=array2table([results.pear.MentalAlphabet results.spear.MentalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-results.workloadVsAlphabet.temporalVsAlphabet=array2table([results.pear.TemporalAlphabet results.spear.TemporalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-results.workloadVsAlphabet.physicalVsAlphabet=array2table([results.pear.PhysicalAlphabet results.spear.PhysicalAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-results.workloadVsAlphabet.performanceVsAlphabet=array2table([results.pear.PerformanceAlphabet results.spear.PerformanceAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-results.workloadVsAlphabet.effortVsAlphabet=array2table([results.pear.EffortAlphabet results.spear.EffortAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-results.workloadVsAlphabet.frustrationVsAlphabet=array2table([results.pear.FrustrationAlphabet results.spear.FrustrationAlphabet],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(1:4)));
-
-% workload vs fNIRS
-for j=1:5
-    [r,pval]=corr(wws(:,j),fNIRSArray(:,j),'rows','complete');
-    results.pear.WwsfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(uws(:,j),fNIRSArray(:,j));
-    results.pear.UwsfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(mental(:,j),fNIRSArray(:,j));
-    results.pear.MentalfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(physical(:,j),fNIRSArray(:,j));
-    results.pear.PhysicalfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(temporal(:,j),fNIRSArray(:,j));
-    results.pear.TemporalfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(performance(:,j),fNIRSArray(:,j));
-    results.pear.PerformancefNIRS(j,:)=[r,pval];
-    [r,pval]=corr(effort(:,j),fNIRSArray(:,j));
-    results.pear.EffortfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(frustration(:,j),fNIRSArray(:,j));
-    results.pear.FrustrationfNIRS(j,:)=[r,pval];
-    
-    [r,pval]=corr(wws(:,j),fNIRSArray(:,j),'rows','complete','type','spearman');
-    results.spear.WwsfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(uws(:,j),fNIRSArray(:,j),'type','spearman');
-    results.spear.UwsfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(mental(:,j),fNIRSArray(:,j),'type','spearman');
-    results.spear.MentalfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(physical(:,j),fNIRSArray(:,j),'type','spearman');
-    results.spear.PhysicalfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(temporal(:,j),fNIRSArray(:,j),'type','spearman');
-    results.spear.TemporalfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(performance(:,j),fNIRSArray(:,j),'type','spearman');
-    results.spear.PerformancefNIRS(j,:)=[r,pval];
-    [r,pval]=corr(effort(:,j),fNIRSArray(:,j),'type','spearman');
-    results.spear.EffortfNIRS(j,:)=[r,pval];
-    [r,pval]=corr(frustration(:,j),fNIRSArray(:,j),'type','spearman');
-    results.spear.FrustrationfNIRS(j,:)=[r,pval];
-end
-
-results.workloadVsfNIRS.wwsVsfNIRS=array2table([results.pear.WwsfNIRS results.spear.WwsfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-results.workloadVsfNIRS.uwsVsfNIRS=array2table([results.pear.UwsfNIRS results.spear.UwsfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-results.workloadVsfNIRS.mentalVsfNIRS=array2table([results.pear.MentalfNIRS results.spear.MentalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-results.workloadVsfNIRS.temporalVsfNIRS=array2table([results.pear.TemporalfNIRS results.spear.TemporalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-results.workloadVsfNIRS.physicalVsfNIRS=array2table([results.pear.PhysicalfNIRS results.spear.PhysicalfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-results.workloadVsfNIRS.performanceVsfNIRS=array2table([results.pear.PerformancefNIRS results.spear.PerformancefNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-results.workloadVsfNIRS.effortVsfNIRS=array2table([results.pear.EffortfNIRS results.spear.EffortfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-results.workloadVsfNIRS.frustrationVsfNIRS=array2table([results.pear.FrustrationfNIRS results.spear.FrustrationfNIRS],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat));
-
-%workload vs walk speed
-for j=3:5    
-    [r,pval]=corr(wws(:,j),speedArray(:,j-2),'rows','complete');
-    results.pear.WwsSpeed(j,:)=[r,pval];
-    [r,pval]=corr(uws(:,j),speedArray(:,j-2));
-    results.pear.UwsSpeed(j,:)=[r,pval];
-    [r,pval]=corr(mental(:,j),speedArray(:,j-2));
-    results.pear.MentalSpeed(j,:)=[r,pval];
-    [r,pval]=corr(physical(:,j),speedArray(:,j-2));
-    results.pear.PhysicalSpeed(j,:)=[r,pval];
-    [r,pval]=corr(temporal(:,j),speedArray(:,j-2));
-    results.pear.TemporalSpeed(j,:)=[r,pval];
-    [r,pval]=corr(performance(:,j),speedArray(:,j-2));
-    results.pear.PerformanceSpeed(j,:)=[r,pval];
-    [r,pval]=corr(effort(:,j),speedArray(:,j-2));
-    results.pear.EffortSpeed(j,:)=[r,pval];
-    [r,pval]=corr(frustration(:,j),speedArray(:,j-2));
-    results.pear.FrustrationSpeed(j,:)=[r,pval];
-    
-    [r,pval]=corr(wws(:,j),speedArray(:,j-2),'rows','complete','type','spearman');
-    results.spear.WwsSpeed(j,:)=[r,pval];
-    [r,pval]=corr(uws(:,j),speedArray(:,j-2),'type','spearman');
-    results.spear.UwsSpeed(j,:)=[r,pval];
-    [r,pval]=corr(mental(:,j),speedArray(:,j-2),'type','spearman');
-    results.spear.MentalSpeed(j,:)=[r,pval];
-    [r,pval]=corr(physical(:,j),speedArray(:,j-2),'type','spearman');
-    results.spear.PhysicalSpeed(j,:)=[r,pval];
-    [r,pval]=corr(temporal(:,j),speedArray(:,j-2),'type','spearman');
-    results.spear.TemporalSpeed(j,:)=[r,pval];
-    [r,pval]=corr(performance(:,j),speedArray(:,j-2),'type','spearman');
-    results.spear.PerformanceSpeed(j,:)=[r,pval];
-    [r,pval]=corr(effort(:,j),speedArray(:,j-2),'type','spearman');
-    results.spear.EffortSpeed(j,:)=[r,pval];
-    [r,pval]=corr(frustration(:,j),speedArray(:,j-2),'type','spearman');
-    results.spear.FrustrationSpeed(j,:)=[r,pval];
-end
-
-results.workloadVsSpeed.wwsVsSpeed=array2table([results.pear.WwsSpeed(3:5,:) results.spear.WwsSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-results.workloadVsSpeed.uwsVsSpeed=array2table([results.pear.UwsSpeed(3:5,:) results.spear.UwsSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-results.workloadVsSpeed.mentalVsSpeed=array2table([results.pear.MentalSpeed(3:5,:) results.spear.MentalSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-results.workloadVsSpeed.temporalVsSpeed=array2table([results.pear.TemporalSpeed(3:5,:) results.spear.TemporalSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-results.workloadVsSpeed.physicalVsSpeed=array2table([results.pear.PhysicalSpeed(3:5,:) results.spear.PhysicalSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-results.workloadVsSpeed.performanceVsSpeed=array2table([results.pear.PerformanceSpeed(3:5,:) results.spear.PerformanceSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-results.workloadVsSpeed.effortVsSpeed=array2table([results.pear.EffortSpeed(3:5,:) results.spear.EffortSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-results.workloadVsSpeed.frustrationVsSpeed=array2table([results.pear.FrustrationSpeed(3:5,:) results.spear.FrustrationSpeed(3:5,:)],'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',string(task_cat(3:5)));
-
-results=rmfield(results, ["pear" "spear"]);
-
-%Workload vs change in alphabet rate
-
-for j=2:4
-    [r,pval]=corr(wws(:,j),deltaAlphabet(:,j-1),'rows','complete');
-    [r2,pval2]=corr(wws(:,j),deltaAlphabet(:,j-1),'rows','complete','type','spearman');
-    placeHolder4.wws(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(uws(:,j),deltaAlphabet(:,j-1),'rows','complete');
-    [r2,pval2]=corr(uws(:,j),deltaAlphabet(:,j-1),'rows','complete','type','spearman');
-    placeHolder4.uws(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(mental(:,j),deltaAlphabet(:,j-1));
-    [r2,pval2]=corr(mental(:,j),deltaAlphabet(:,j-1),'type','spearman');
-    placeHolder4.mental(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(temporal(:,j),deltaAlphabet(:,j-1));
-    [r2,pval2]=corr(temporal(:,j),deltaAlphabet(:,j-1),'type','spearman');
-    placeHolder4.temporal(j,:)=[r pval r2 pval2];   
-    
-    [r,pval]=corr(physical(:,j),deltaAlphabet(:,j-1));
-    [r2,pval2]=corr(physical(:,j),deltaAlphabet(:,j-1),'type','spearman');
-    placeHolder4.physical(j,:)=[r pval r2 pval2];    
-    
-    [r,pval]=corr(performance(:,j),deltaAlphabet(:,j-1));
-    [r2,pval2]=corr(performance(:,j),deltaAlphabet(:,j-1),'type','spearman');
-    placeHolder4.performance(j,:)=[r pval r2 pval2];    
-    
-    [r,pval]=corr(effort(:,j),deltaAlphabet(:,j-1));
-    [r2,pval2]=corr(effort(:,j),deltaAlphabet(:,j-1),'type','spearman');
-    placeHolder4.effort(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(frustration(:,j),deltaAlphabet(:,j-1));
-    [r2,pval2]=corr(frustration(:,j),deltaAlphabet(:,j-1),'type','spearman');
-    placeHolder4.frustration(j,:)=[r pval r2 pval2];
-    
-end
-
-results.workloadVsDeltaAlphabet.wwsVsDeltaAlphabet=array2table(placeHolder4.wws(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-results.workloadVsDeltaAlphabet.uwsVsDeltaAlphabet=array2table(placeHolder4.uws(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-results.workloadVsDeltaAlphabet.mentalVsDeltaAlphabet=array2table(placeHolder4.mental(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-results.workloadVsDeltaAlphabet.temporalVsDeltaAlphabet=array2table(placeHolder4.temporal(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-results.workloadVsDeltaAlphabet.physicalVsDeltaAlphabet=array2table(placeHolder4.physical(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-results.workloadVsDeltaAlphabet.performanceVsDeltaAlphabet=array2table(placeHolder4.temporal(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-results.workloadVsDeltaAlphabet.effortVsDeltaAlphabet=array2table(placeHolder4.effort(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-results.workloadVsDeltaAlphabet.frustrationVsDeltaAlphabet=array2table(placeHolder4.frustration(2:4,:),'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',alphabet_str);
-
-clear placeHolder4;
-
-% Workload vs change in speed
-for j=1:2
-    [r,pval]=corr(wws(:,j+2),deltaSpeed(:,j),'rows','complete');
-    [r2,pval2]=corr(wws(:,j+2),deltaSpeed(:,j),'rows','complete','type','spearman');
-    placeHolder4.wws(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(uws(:,j+2),deltaSpeed(:,j),'rows','complete');
-    [r2,pval2]=corr(uws(:,j+2),deltaSpeed(:,j),'rows','complete','type','spearman');
-    placeHolder4.uws(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(mental(:,j+2),deltaSpeed(:,j));
-    [r2,pval2]=corr(mental(:,j+2),deltaSpeed(:,j),'type','spearman');
-    placeHolder4.mental(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(temporal(:,j+2),deltaSpeed(:,j));
-    [r2,pval2]=corr(temporal(:,j+2),deltaSpeed(:,j),'type','spearman');
-    placeHolder4.temporal(j,:)=[r pval r2 pval2];   
-    
-    [r,pval]=corr(physical(:,j+2),deltaSpeed(:,j));
-    [r2,pval2]=corr(physical(:,j+2),deltaSpeed(:,j),'type','spearman');
-    placeHolder4.physical(j,:)=[r pval r2 pval2];    
-    
-    [r,pval]=corr(performance(:,j+2),deltaSpeed(:,j));
-    [r2,pval2]=corr(performance(:,j+2),deltaSpeed(:,j),'type','spearman');
-    placeHolder4.performance(j,:)=[r pval r2 pval2];    
-    
-    [r,pval]=corr(effort(:,j+2),deltaSpeed(:,j));
-    [r2,pval2]=corr(effort(:,j+2),deltaSpeed(:,j),'type','spearman');
-    placeHolder4.effort(j,:)=[r pval r2 pval2];
-    
-    [r,pval]=corr(frustration(:,j+2),deltaSpeed(:,j));
-    [r2,pval2]=corr(frustration(:,j+2),deltaSpeed(:,j),'type','spearman');
-    placeHolder4.frustration(j,:)=[r pval r2 pval2];
-    
-end
-
-results.workloadVsDeltaSpeed.wwsVsDeltaSpeed=array2table(placeHolder4.wws,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
-results.workloadVsDeltaSpeed.uwsVsDeltaSpeed=array2table(placeHolder4.uws,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
-results.workloadVsDeltaSpeed.mentalVsDeltaSpeed=array2table(placeHolder4.mental,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
-results.workloadVsDeltaSpeed.temporalVsDeltaSpeed=array2table(placeHolder4.temporal,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
-results.workloadVsDeltaSpeed.physicalVsDeltaSpeed=array2table(placeHolder4.physical,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
-results.workloadVsDeltaSpeed.performanceVsDeltaSpeed=array2table(placeHolder4.temporal,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
-results.workloadVsDeltaSpeed.effortVsDeltaSpeed=array2table(placeHolder4.effort,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
-results.workloadVsDeltaSpeed.frustrationVsDeltaSpeed=array2table(placeHolder4.frustration,'VariableNames',string(["Pearson's r","Pearson's pval","Spearman's r","Spearman's pval"]),'rowNames',speed_str);
 
