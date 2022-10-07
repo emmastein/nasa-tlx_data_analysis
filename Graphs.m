@@ -1,33 +1,39 @@
 close all;
 clear ColorOrd colorOrder;
-set(groot,'DefaultAxesColorOrder','default')
+set(groot,'DefaultAxesColorOrder','default') %return axis colors (colors of data points) to the default color pallet
 
+%Task labels
 task_cat= categorical(["Stand 2" "Stand 3" "Walk 2" "Walk 3" "Walk"]);
-task_cat=reordercats(task_cat,["Stand 2" "Stand 3" "Walk 2" "Walk 3" "Walk"]);
-task_str= ["Stand2" "Stand3" "Walk2" "Walk3" "Walk"];
-speed_str=["Walk2_Walk" "Walk3_Walk"];
-alphabet_str=["Stand3_Stand2" "Walk2_Stand2" "Walk3_Stand2"];
+task_cat=reordercats(task_cat,["Stand 2" "Stand 3" "Walk 2" "Walk 3" "Walk"]);  % Task labels as a category
+task_str= ["Stand2" "Stand3" "Walk2" "Walk3" "Walk"];   % task labels as a string
+speed_str=["Walk2_Walk" "Walk3_Walk"]; %;labels for change in walk speed
+alphabet_str=["Stand3_Stand2" "Walk2_Stand2" "Walk3_Stand2"]; % labels for change in alphabet
 
-deltaSpeed=[speedArray(:,1)-speedArray(:,3) , speedArray(:,2)-speedArray(:,3)];
-deltaAlphabet=[alphabetArray(:,2)-alphabetArray(:,1),alphabetArray(:,3)-alphabetArray(:,1),alphabetArray(:,4)-alphabetArray(:,1)];
+%calculation for change in speed
+deltaSpeed=[speedArray(:,1)-speedArray(:,3) , speedArray(:,2)-speedArray(:,3)]; 
+%calculation for change in alpahabet speed
+deltaAlphabet=[alphabetArray(:,2)-alphabetArray(:,1),alphabetArray(:,3)-alphabetArray(:,1),alphabetArray(:,4)-alphabetArray(:,1)];  
 
-ColorOrderNirsAutomaticity
+ColorOrderNirsAutomaticity %Universal colors for participants
 
+%Create a list of colors that matches the participant to ther assigned color
 k=0;
 for j=1:length(subjects)+1
     if j==9
-        j=j+1;
+        j=j+1; % skip 10 as they did not score the workloads  corretly, but other data not used here was collected for them
     else
     k=k+1;
     ColorOrd(k,:)=colorOrder(j,:);
-   
     end
 end
-set(groot,'DefaultAxesColorOrder',ColorOrd)
+set(groot,'DefaultAxesColorOrder',ColorOrd) %set axis color to match the correct color for participants
 
 %% Workload
 
-figure(1)   %Unweighted workload 
+% Bar graph of all 8 workload categories for task vs workload
+
+%Unweighted workload 
+figure(1)   
 bar(task_cat,mean(uws,1));
 hold on
 er= errorbar(mean(uws,1),std(uws,1));
@@ -35,14 +41,14 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel('Rating')
 title('Unweighted workload scores')
-set(gca,'ColorOrderIndex',1)
+set(gca,'ColorOrderIndex',1)    %sets the color index to start at one (lines up the assigned color with the participant)
 p=plot(task_cat,uws, '.-','MarkerSize',14);
 legend(p,leg)
 hold off
 
-
-figure(2)   %weighted workload
-bar(task_cat,mean(wws,1,'omitnan'))
+%weighted workload
+figure(2)   
+bar(task_cat,mean(wws,1,'omitnan')) %As a subject is missing weights, must omit that weighted workload score
 hold on
 er= errorbar(mean(wws,1,'omitnan'),std(wws,1,'omitnan'));
 er.Color = [0 0 0];  
@@ -54,7 +60,8 @@ p=plot(task_cat,wws, '.-','MarkerSize',14);
 legend(p,leg)
 hold off
 
-figure(3)   %Menatal demand
+%Menatal demand
+figure(3)   
 subplot(2,3,1)
 bar(task_cat,mean(mental,1))
 hold on
@@ -67,8 +74,8 @@ set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,mental, '.-','MarkerSize',14);
 hold off
 
-
-subplot(2,3,2) %Physical demand
+%Physical demand
+subplot(2,3,2) 
 bar(task_cat,mean(physical,1))
 hold on
 er= errorbar(mean(physical,1),std(physical,1));
@@ -78,11 +85,10 @@ ylabel("Rating")
 title("Physical demand score")
 set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,physical, '.-','MarkerSize',14);
-legend(p,leg)
 hold off
 
-
-subplot(2,3,3)   %Temporal demand
+%Temporal demand
+subplot(2,3,3)   
 bar(task_cat,mean(temporal,1))
 hold on
 er= errorbar(mean(temporal,1),std(temporal,1));
@@ -94,7 +100,8 @@ set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,temporal, '.-','MarkerSize',14);
 hold off
 
-subplot(2,3,4)   %Performance
+%Performance
+subplot(2,3,4)   
 bar(task_cat,mean(performance,1))
 hold on
 er= errorbar(mean(performance,1),std(performance,1));
@@ -106,7 +113,8 @@ set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,performance, '.-','MarkerSize',14);
 hold off
 
-subplot(2,3,5)   %Effort
+%Effort
+subplot(2,3,5)   
 bar(task_cat,mean(effort,1))
 hold on
 er= errorbar(mean(effort,1),std(effort,1));
@@ -118,7 +126,8 @@ set(gca,'ColorOrderIndex',1)
 p=plot(task_cat,effort, '.-','MarkerSize',14);
 hold off
 
-subplot(2,3,6)  %frustration demand
+%frustration
+subplot(2,3,6)  
 bar(task_cat,mean(frustration,1))
 hold on
 er= errorbar(mean(frustration,1),std(frustration,1));
@@ -133,7 +142,7 @@ hold off
 
 %% Alphabet Rate
 
-set(groot,'DefaultFigurePosition',[100,100,800,600])
+set(groot,'DefaultFigurePosition',[100,100,800,600]) % setting the figure to a universal size for this comparison
 
 %wws vs alphabet rate
 figure(4)
@@ -152,7 +161,7 @@ for i=1:4
     hold off
 end
 lgd=legend(leg,'Location','none');
-set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
+set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659]) %setting the legend to a mostly universal place in the figure
 sgtitle('Weighted Workload Score vs Alphabet Rate')
 
 figure(5) %uws vs alphabet rate
@@ -206,7 +215,7 @@ for i=1:4
     title(task_cat(i))
     hold off
 end
-lgd=legend(leg,'Location','none')
+lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659]);
 sgtitle('Temporal Demand Subscore vs Alphabet Rate')
 
@@ -287,7 +296,7 @@ sgtitle('Frustration Subscore vs Alphabet Rate')
 
 %% fNirs
 
-set(groot,'DefaultFigurePosition',[100,100,1000,600])
+set(groot,'DefaultFigurePosition',[100,100,1000,600]) % changing fihure size for this set of comparisons
 
 %wws vs fnirs
 figure(12)
@@ -658,6 +667,8 @@ sgtitle('Frustration Subscore vs Walk Speed')
 
 %% deltaSpeed Vs Workload
 
+set(groot,'DefaultFigurePosition',[100,100,900,350])
+
 figure(30)
 for i=1:2     
     subplot(1,2,i)     
@@ -672,7 +683,8 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.1 0.671666647593181])
 sgtitle('Unweighted Workload Score vs Change in Walk Speed')
 
 figure(31)
@@ -689,7 +701,7 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+
 sgtitle('Weighted Workload Score vs Change in Walk Speed')
 
 figure(32)
@@ -706,7 +718,7 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+
 sgtitle('Mental Demand Subscore vs Change in Walk Speed')
 
 figure(33)
@@ -723,7 +735,7 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+
 sgtitle('Temporal Demand Subscore vs Change in Walk Speed')
 
 figure(34)
@@ -740,7 +752,8 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.881607832863972 0.31277783718374 0.1 0.671666647593181])
 sgtitle('Physical Demand Subscore vs Change in Walk Speed')
 
 figure(35)
@@ -757,7 +770,7 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+
 sgtitle('Performance Subscore vs Change in Walk Speed')
 
 figure(36)
@@ -774,7 +787,7 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+
 sgtitle('Effort Subscore vs Change in Walk Speed')
 
 figure(37)
@@ -791,10 +804,12 @@ for i=1:2
     title(task_cat(i+2))
     hold off
 end
-legend(leg)
+
 sgtitle('Frustration Subscore vs Change in Walk Speed')
 
 %% Change in Alphabet Rate vs workload
+
+set(groot,'DefaultFigurePosition',[100,100,900,500])
 
 figure(40)
 for i=2:4
@@ -810,7 +825,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Weighted Workload Score vs Change in Alphabet Rate')
 
 figure(45) %uws vs alphabet rate
@@ -818,7 +834,7 @@ for i=2:4
     subplot(2,2,i)
     hold on
     for j=1:length(subjects)
-        plot(uws(j,i),deltaAlphabet(j,i-1),'.','MarkerSize',12,'color' ,ColorOrd(j,:)); 
+        plot(uws(j,i),deltaAlphabet(j,i-1),'.','MarkerSize',12);
     end
     xlim([0 100])
     ylim([-.25 .15])
@@ -827,7 +843,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Uweighted Workload Score vs Change in Alphabet Rate')
 
 %Mental vs alphabet rate
@@ -845,7 +862,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Mental Demand Subscore vs Change in Alphabet Rate')
 
 %Temporal vs alphabet rate
@@ -863,7 +881,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
- legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Temporal Demand Subscore vs Change in Alphabet Rate')
 
 %Physical vs alphabet rate
@@ -881,7 +900,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Physical Demand Subscore vs Change in Alphabet Rate')
 
 %performance vs alphabet rate
@@ -899,7 +919,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Performance Subscore vs Change in Alphabet Rate')
 
 %Effort vs alphabet rate
@@ -917,7 +938,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Effort Subscore vs Change in Alphabet Rate')
  
 %Frustration vs alphabet rate
@@ -935,7 +957,8 @@ for i=2:4
     title(task_cat(i))
     hold off
 end
-legend(leg)
+lgd=legend(leg);
+set(lgd,'Position',[0.135925928210771,0.528161305909195,0.133333331048489,0.378999989271164]);
 sgtitle('Frustration Subscore vs Change in Alphabet Rate')
 
 %% ks test

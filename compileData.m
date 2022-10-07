@@ -2,7 +2,7 @@
 
 %% Variables
 
-subjects=[1:7 9 11:12];
+subjects=[1:7 9 11:13 15];
 
 %% load tlx
 
