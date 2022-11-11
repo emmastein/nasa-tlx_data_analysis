@@ -281,9 +281,9 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';  
 ylabel('Rating')
 title('Unweighted workload scores')
-set(gca,'ColorOrderIndex',1)    %sets the color index to start at one (lines up the assigned color with the participant)
+set(gca,'ColorOrderIndex',1,'fontsize', 22)    %sets the color index to start at one (lines up the assigned color with the participant)
 p=plot(task_cat,taskdiff, '.-','MarkerSize',14);
-legend(p,leg)
+legend(p,leg,'fontsize' ,12)
 hold off
 
 %weighted workload
@@ -426,14 +426,16 @@ for i=1:4
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
+    if i== 2 || i==4
         coefficients = polyfit(uws([1:3 5:end],i), alphabetArray([1:3 5:end],i),1);
-    xFit = linspace(min(uws(:,i)), max(uws(:,i)), 1000);
-    yFit = polyval(coefficients , xFit);
-    hold on; 
-    plot(xFit, yFit, 'k-', 'LineWidth', 1);
-    value=sprintf("Pearson: %f,  p-value: %f \nSpearman: %f,  p-value: %f",results.workloadVsAlphabet.uwsVsAlphabet{i,1},results.workloadVsAlphabet.uwsVsAlphabet{i,2},results.workloadVsAlphabet.uwsVsAlphabet{i,3},results.workloadVsAlphabet.uwsVsAlphabet{i,4});
-    text(5,.1,value);
-    hold off
+        xFit = linspace(min(uws(:,i)), max(uws(:,i)), 1000);
+        yFit = polyval(coefficients , xFit);
+        hold on; 
+        plot(xFit, yFit, 'k-', 'LineWidth', 1);
+        value=sprintf("Spearman: %f,  p-value: %f",results.workloadVsAlphabet.uwsVsAlphabet{i,3},results.workloadVsAlphabet.uwsVsAlphabet{i,4});
+        text(5,.1,value);
+        hold off
+    end
 end
 lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
@@ -594,9 +596,9 @@ for i=1:6
         end
         xlim([0 100])
         ylim([-10 10])
-        ylabel('fNIRS')
-        xlabel('Workload rating')
-        title(task_cat(k))
+        ylabel('fNIRS','fontsize', 16)
+        xlabel('Workload rating','fontsize', 16)
+        title(task_cat(k),'fontsize', 20)
         hold off
         k=k+1;
     end
@@ -604,7 +606,7 @@ for i=1:6
 end
 lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.735478810761973 0.571388897829585 0.11999999794364 0.315833324392637])
-sgtitle('Unweighted Workload Score vs fNIRS')
+sgtitle('Unweighted Workload Score vs fNIRS','fontsize', 24)
 
 %Mental vs fnirs
 figure(14) 
@@ -804,14 +806,14 @@ for i=1:3
     end
     xlim([0 100])
     ylim([.4 1.2])
-    ylabel('Walk Speed')
-    xlabel('Workload rating')
-    title(task_cat(i))
+    ylabel('Walk Speed','fontsize',14)
+    xlabel('Workload rating','fontsize',14)
+    title(task_cat(i),'fontsize',14)
     hold off
 end
 lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.881607832863972 0.31277783718374 0.112727270749482 0.671666647593181])
-sgtitle('Unweighted Workload Score vs Walk Speed')
+sgtitle('Unweighted Workload Score vs Walk Speed','fontsize', 16)
 
 %Mental vs walk speed
 figure(23) 
