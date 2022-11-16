@@ -13,11 +13,11 @@ j=1;
 for k=subjects
     if j==1
         fileName=sprintf("AUF%02dV01RetestTLX.mat",k);
-        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",k);
+        fileLocation=sprintf("X:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",k);
         legend_name=sprintf("AUF01Retest"); % label for legend when graphing  
     else
         fileName=sprintf("AUF%02dV01TLX.mat",k);
-        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",k);
+        fileLocation=sprintf("X:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",k);
         legend_name=sprintf("AUF%02d",k); % label for legend when graphing
     end
     load(fileLocation+fileName);   
@@ -31,10 +31,10 @@ m=1;
 for k=subjects
     if m==1
         fileName=sprintf("AUF%02dV01RetestDTdata.mat",k);
-        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",k);
+        fileLocation=sprintf("X:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01Retest\\",k);
     else
         fileName=sprintf("AUF%02dV01DTdata.mat",k);
-        fileLocation=sprintf("Z:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",k);
+        fileLocation=sprintf("X:\\Shuqi\\NirsAutomaticityStudy\\Data\\AUF%02d\\V01\\",k);
     end
     load(fileLocation+fileName);
     placeHolder=DTdata.data.alphabetRate;

@@ -418,13 +418,13 @@ for i=1:4
     subplot(2,2,i)
     hold on
     for j=1:length(subjects)
-        plot(uws(j,i),alphabetArray(j,i),'.','MarkerSize',12,'color' ,ColorOrd(j,:)); 
+        plot(uws(j,i),alphabetArray(j,i),'.','MarkerSize',13,'color' ,ColorOrd(j,:)); 
     end
     xlim([0 100])
     ylim([0 .7])
-    ylabel('Alphabet Rate')
-    xlabel('Workload rating')
-    title(task_cat(i))
+    ylabel('Alphabet Rate','fontsize', 20)
+    xlabel('Workload rating','fontsize', 20)
+    title(task_cat(i),'fontsize', 24)
     hold off
     if i== 2 || i==4
         coefficients = polyfit(uws([1:3 5:end],i), alphabetArray([1:3 5:end],i),1);
@@ -432,14 +432,14 @@ for i=1:4
         yFit = polyval(coefficients , xFit);
         hold on; 
         plot(xFit, yFit, 'k-', 'LineWidth', 1);
-        value=sprintf("Spearman: %f,  p-value: %f",results.workloadVsAlphabet.uwsVsAlphabet{i,3},results.workloadVsAlphabet.uwsVsAlphabet{i,4});
-        text(5,.1,value);
+        value=sprintf("Spearman: %f, p-value: %f",results.workloadVsAlphabet.uwsVsAlphabet{i,3},results.workloadVsAlphabet.uwsVsAlphabet{i,4});
+        text(5,.1,value,'fontsize', 12);
         hold off
     end
 end
 lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
-sgtitle('Uweighted Workload Score vs Alphabet Rate')
+sgtitle('Uweighted Workload Score vs Alphabet Rate','fontsize', 28)
 
 %Mental vs alphabet rate
 figure(6)

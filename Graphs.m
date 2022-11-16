@@ -422,14 +422,16 @@ for i=1:4
     xlabel('Workload rating')
     title(task_cat(i))
     hold off
+    if results.workloadVsAlphabet.uwsVsAlphabet{i,4} < 0.05
         coefficients = polyfit(uws([1:3 5:end],i), alphabetArray([1:3 5:end],i),1);
-    xFit = linspace(min(uws(:,i)), max(uws(:,i)), 1000);
-    yFit = polyval(coefficients , xFit);
-    hold on; 
-    plot(xFit, yFit, 'k-', 'LineWidth', 1);
-    value=sprintf("Pearson: %f,  p-value: %f \nSpearman: %f,  p-value: %f",results.workloadVsAlphabet.uwsVsAlphabet{i,1},results.workloadVsAlphabet.uwsVsAlphabet{i,2},results.workloadVsAlphabet.uwsVsAlphabet{i,3},results.workloadVsAlphabet.uwsVsAlphabet{i,4});
-    text(5,.1,value);
-    hold off
+        xFit = linspace(min(uws(:,i)), max(uws(:,i)), 1000);
+        yFit = polyval(coefficients , xFit);
+        hold on; 
+        plot(xFit, yFit, 'k-', 'LineWidth', 1);
+        value=sprintf("\rho: %f,  p: %f",results.workloadVsAlphabet.uwsVsAlphabet{i,3},results.workloadVsAlphabet.uwsVsAlphabet{i,4});
+        text(5,.1,value);
+        hold off
+    end
 end
 lgd=legend(leg,'Location','none');
 set(lgd,'Position',[0.839166669386128 0.659722225235568 0.154999997280538 0.33583332379659])
